@@ -1,0 +1,245 @@
+<!-- * Created on Thu July 18 2019 
+ * Copyright  2019 - Yu Zhou
+ * Email: yu.nico.zhou@gmail.com -->
+ 
+<!doctype html>
+<html lang="en">
+  <style>
+      tr {
+          /* line-height: 10px; */
+          /* min-height: 6px; */
+          /* height: 1px; */
+          }
+      tr td{
+          padding: 0 !important;
+          margin: 0 !important;
+          }
+      
+  </style>
+  <head>
+    <title>Kerrigan UI</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="./bootstrap/bootstrap.min.css"  rel="stylesheet" >
+    <script src="./bootstrap/bootstrap.min.js"></script>
+    
+    <!-- Ros Lib -->
+    <script src="./roslibjs/roslib.min.js"></script>
+    <script src="./roslibjs/eventemitter2.js"></script>
+    <script src="./roslibjs/ros3d.js"></script>
+  
+    <script src="ddronelibjs/webui.js"></script>
+    <script src="ddronelibjs/subscribers.js"></script>
+    <script type="text/javascript" src="ddronelibjs/wp_selection.js"></script>
+  </head>
+
+  <body class="bg-light">
+    <!-- navigation bar -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top" >
+      <a class="navbar-brand" href="#">Kerrigan</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#mission_tab">Mission</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+        </ul>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-4" ></div>
+                <div class="col-sm-8"  style="text-align: right;" >
+                    <!-- <span id="server-ip"></span> (<span id="roslibjs-status"> Waiting to Connect... </span>)
+                    <span id="server-150"></span> (<span id="roslibjs150-status"> Waiting to Connect... </span>) -->
+                </div>
+            </div>
+        </div>  
+      </div>
+    </nav>
+
+    <!-- start contents -->
+    <div class="container-fluid">
+        <h1>Place Hold</h1>
+        <h1>Place Hold</h1>
+
+      <div class="row">
+        <div class="container  col-sm-6">
+          <!-- uav status table-->
+          <table style="text-align: center; vertical-align:middle "  cellspacing="0" cellpadding="0" class="table table-striped  ">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">IP</th>
+                <th scope="col">ROS</th>
+                <th scope="col">Status</th>
+                <th scope="col">x</th>
+                <th scope="col">y</th>
+                <th scope="col">z</th>
+                <th scope="col">heading</th>         
+              </tr>
+            </thead>
+            <!-- <tbody style="width:50%; height: width; overflow-y: scroll"> -->
+              <tbody>
+              <tr  class="table">
+                <td id="id_1">1</td>
+                <td id="ip_1"><input type="text" value="192.168.1.150" class="input-sm" style='width:7.5em; text-align: center;' id="1_in" onchange="changeIp(this.value, this.id)"></td>
+                <td id="roslibjs_status_1">Waiting...</td>
+                <td id="uav_status_1"></td>
+                <td id="x_1"></td>
+                <td id="y_1"></td>
+                <td id="z_1"></td>
+                <td id="heading_1"></td>
+              </tr>
+              <tr  class="table">
+                <td id="id_2">2</td>
+                <td id="ip_2"><input type="text" value="127.0.0.1" class="input-sm" style='width:7.5em; text-align: center;' id="2_in" onchange="changeIp(this.value, this.id)"></td>
+                <td id="roslibjs_status_2">Waiting...</td>
+                <td id="uav_status_2"></td>
+                <td id="x_2"></td>
+                <td id="y_2"></td>
+                <td id="z_2"></td>
+                <td id="heading_2"></td>
+              </tr>
+              <tr  class="table">
+                <td id="id_3">3</td>
+                <td id="ip_3"><input type="text" value="127.0.0.1" class="input-sm" style='width:7.5em; text-align: center;' id="3_in" onchange="changeIp(this.value, this.id)"></td>
+                <td id="roslibjs_status_3">Waiting...</td>
+                <td id="uav_status_3"></td>
+                <td id="x_3"></td>
+                <td id="y_3"></td>
+                <td id="z_3"></td>
+                <td id="heading_3"></td>
+              </tr>
+              <tr  class="table">
+                <td id="id_4">4</td>
+                <td id="ip_4"><input type="text" value="127.0.0.1" class="input-sm" style='width:7.5em; text-align: center;' id="4_in" onchange="changeIp(this.value, this.id)"></td>
+                <td id="roslibjs_status_4">Waiting...</td>
+                <td id="uav_status_4"></td>
+                <td id="x_4"></td>
+                <td id="y_4"></td>
+                <td id="z_4"></td>
+                <td id="heading_4"></td>
+              </tr>
+              <tr  class="table">
+                <td id="id_5">5</td>
+                <td id="ip_5"><input type="text" value="127.0.0.1" class="input-sm" style='width:7.5em; text-align: center;' id="5_in" onchange="changeIp(this.value, this.id)"></td>
+                <td id="roslibjs_status_5">Waiting...</td>
+                <td id="uav_status_5"></td>
+                <td id="x_5"></td>
+                <td id="y_5"></td>
+                <td id="z_5"></td>
+                <td id="heading_5"></td>
+              </tr>
+              <tr  class="table">
+                <td id="id_6">6</td>
+                <td id="ip_6"><input type="text" value="127.0.0.1" class="input-sm" style='width:7.5em; text-align: center;' id="6_in" onchange="changeIp(this.value, this.id)"></td>
+                <td id="roslibjs_status_6">Waiting...</td>
+                <td id="uav_status_6"></td>
+                <td id="x_6"></td>
+                <td id="y_6"></td>
+                <td id="z_6"></td>
+                <td id="heading_6"></td>
+              </tr>
+              <tr  class="table">
+                <td id="id_7">7</td>
+                <td id="ip_7"><input type="text" value="127.0.0.1" class="input-sm" style='width:7.5em; text-align: center;' id="7_in" onchange="changeIp(this.value, this.id)"></td>
+                <td id="roslibjs_status_7">Waiting...</td>
+                <td id="uav_status_7"></td>
+                <td id="x_7"></td>
+                <td id="y_7"></td>
+                <td id="z_7"></td>
+                <td id="heading_7"></td>
+              </tr>
+              <tr  class="table">
+                <td id="id_8">8</td>
+                <td id="ip_8"><input type="text" value="127.0.0.1" class="input-sm" style='width:7.5em; text-align: center;' id="8_in" onchange="changeIp(this.value, this.id)"></td>
+                <td id="roslibjs_status_8">Waiting...</td>
+                <td id="uav_status_8"></td>
+                <td id="x_8"></td>
+                <td id="y_8"></td>
+                <td id="z_8"></td>
+                <td id="heading_8"></td>
+              </tr>
+              <tr  class="table">
+                <td id="id_9">9</td>
+                <td id="ip_9"><input type="text" value="127.0.0.1" class="input-sm" style='width:7.5em; text-align: center;' id="9_in" onchange="changeIp(this.value, this.id)"></td>
+                <td id="roslibjs_status_9">Waiting...</td>
+                <td id="uav_status_9"></td>
+                <td id="x_9"></td>
+                <td id="y_9"></td>
+                <td id="z_9"></td>
+                <td id="heading_9"></td>
+              </tr>
+              <tr  class="table">
+                <td id="id_10">10</td>
+                <td id="ip_10"><input type="text" value="127.0.0.1" class="input-sm" style='width:7.5em; text-align: center;' id="10_in" onchange="changeIp(this.value, this.id)"></td>
+                <td id="roslibjs_status_10">Waiting...</td>
+                <td id="uav_status_10"></td>
+                <td id="x_10"></td>
+                <td id="y_10"></td>
+                <td id="z_10"></td>
+                <td id="heading_10"></td>
+              </tr>
+              
+            </tbody>
+          </table> 
+          <!-- <div style="text-align: center; height: 200px; width: 100%; overflow-y: scroll;" id="uav_cosole"></div> -->
+        </div>
+
+        <div class="container  col-sm-6 "> 
+          <!-- map -->
+          <div class="container">
+              <div id="map-container-google-3" class="z-depth-1-half map-container">
+                <!-- <iframe
+                  width="100%"
+                  height="350"
+                  frameborder="0" style="border:0"
+                  src="https://www.google.com/maps/embed/v1/view?key=AIzaSyBZosUgHCrvo9AvwD0VMluJlghEn113jm0
+                  &center=1.329446, 103.785627
+                  &zoom=17
+                  &maptype=satellite" allowfullscreen>
+                </iframe> -->
+              </div>
+
+          </div>
+        </div>
+      </div> <!-- first row -->
+
+
+      <!-- images and command row -->
+      <div class="row">
+        <!-- mission -->
+        <div class="card  col-sm-6">
+            <div class="card border-light">
+                <h3 style="text-align: center;" class="card-header">Mission Control</h3>
+                <div style="text-align: center;" class="card-body">
+                  <div class="btn-group  " data-toggle="buttons">
+                    <button type="button" id="engine0" class="btn btn-outline-warning">Engine0</button>
+                    <button type="button" id="takeoff" class="btn btn-outline-success">Takeoff</button> 
+                    <button type="button" id="mission" class="btn btn-outline-info">Mission</button>
+                    <button type="button" id="landing" class="btn btn-outline-primary">Landing</button>  
+                  </div>     
+                </div>
+            </div>   
+        </div>
+        <!-- images -->
+        <div class="card  col-sm-6">
+        <!-- <h3 style="text-align: center;" class="card-header">ZED</h3> -->
+            <img id="zed_image" style="height: 186px; width: 100%; " src=" " alt="Target Tracking">
+        </div>
+      </div> <!-- second row -->
+
+    </div> <!-- end contents -->
+
+  </body>
+</html>
