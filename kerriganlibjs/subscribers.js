@@ -75,67 +75,28 @@ function subscribeRosout(){
 //     });
 // }
 
-function subscribeUAVPoseInfo(){
+function subscribeUAVPoseInfo(uav_id, table_id){
+    
     var listener = new ROSLIB.Topic({
-        ros : ros,
-        name : '/mavros/position/local_nwu/sys_id_6',
+        ros : window['ros_'+ table_id],
+        name : '/mavros/position/local_nwu/sys_id_' + uav_id,
         messageType : 'geometry_msgs/PoseStamped'
     });
-
+    // alert(listener.name);
     listener.subscribe(function(msg){
-        // document.getElementById("x").innerHTML = msg.pose.position.x.toFixed(2);
-        // document.getElementById("y").innerHTML = msg.pose.position.y.toFixed(2);
-        document.getElementById("z-data").innerHTML = msg.pose.position.z.toFixed(2);
+        // alert(uav_id);
+        document.getElementById("x_"+table_id).innerHTML = msg.pose.position.x.toFixed(2);
+        document.getElementById("y_"+table_id).innerHTML = msg.pose.position.y.toFixed(2);
+        document.getElementById("z_"+table_id).innerHTML = msg.pose.position.z.toFixed(2);
         // z_global = msg.pose.position.z.toFixed(2);
         var q = msg.pose.orientation;
         var yaw = - Math.atan2(2.0*(q.x*q.y + q.w*q.z), (q.w*q.w + q.x*q.x - q.y*q.y - q.z*q.z))/Math.PI*180;
         // var yaw = Math.asin(-2.0*(q.x*q.z - q.w*q.y))/Math.PI*180;
         // var yaw = Math.atan2(2.0*(q.y*q.z + q.w*q.x), q.w*q.w - q.x*q.x - q.y*q.y + q.z*q.z)/Math.PI*180;
-        document.getElementById("yaw-data").innerHTML = yaw.toFixed(0);
+        document.getElementById("heading_"+table_id).innerHTML = yaw.toFixed(0);
         // atan2(2.0*(q.y*q.z + q.w*q.x), q.w*q.w - q.x*q.x - q.y*q.y + q.z*q.z);
-    });
-}
-
-function subscribeUAV150PoseInfo(){
-    var listener = new ROSLIB.Topic({
-        ros : ros150,
-        name : '/mavros/position/local_nwu/sys_id_9',
-        messageType : 'geometry_msgs/PoseStamped'
-    });
-
-    listener.subscribe(function(msg){
-        document.getElementById("x_150").innerHTML = msg.pose.position.x.toFixed(2);
-        document.getElementById("y_150").innerHTML = msg.pose.position.y.toFixed(2);
-        document.getElementById("z_150").innerHTML = msg.pose.position.z.toFixed(2);
-        // z_global = msg.pose.position.z.toFixed(2);
-        var q = msg.pose.orientation;
-        var yaw = - Math.atan2(2.0*(q.x*q.y + q.w*q.z), (q.w*q.w + q.x*q.x - q.y*q.y - q.z*q.z))/Math.PI*180;
-        // var yaw = Math.asin(-2.0*(q.x*q.z - q.w*q.y))/Math.PI*180;
-        // var yaw = Math.atan2(2.0*(q.y*q.z + q.w*q.x), q.w*q.w - q.x*q.x - q.y*q.y + q.z*q.z)/Math.PI*180;
-        document.getElementById("yaw_150").innerHTML = yaw.toFixed(0);
-        // atan2(2.0*(q.y*q.z + q.w*q.x), q.w*q.w - q.x*q.x - q.y*q.y + q.z*q.z);
-    });
-}
-
-
-function subscribeGlobalPoseInfo(){
-    var listener = new ROSLIB.Topic({
-        ros : ros,
-        name : '/ekf_fusion/pose_local',
-        messageType : 'geometry_msgs/PoseWithCovarianceStamped'
-    });
-
-    listener.subscribe(function(msg){
-        document.getElementById("x-data").innerHTML = msg.pose.pose.position.x.toFixed(2);
-        document.getElementById("y-data").innerHTML = msg.pose.pose.position.y.toFixed(2);
-        // document.getElementById("z").innerHTML = z_global;
         
-        // var q = msg.pose.pose.orientation;
-        // var yaw = - Math.atan2(2.0*(q.x*q.y + q.w*q.z), (q.w*q.w + q.x*q.x - q.y*q.y - q.z*q.z))/Math.PI*180;
-        // // var yaw = Math.asin(-2.0*(q.x*q.z - q.w*q.y))/Math.PI*180;
-        // // var yaw = Math.atan2(2.0*(q.y*q.z + q.w*q.x), q.w*q.w - q.x*q.x - q.y*q.y + q.z*q.z)/Math.PI*180;
-        // document.getElementById("yaw").innerHTML = yaw.toFixed(0);
-        // // atan2(2.0*(q.y*q.z + q.w*q.x), q.w*q.w - q.x*q.x - q.y*q.y + q.z*q.z);
     });
 }
+
 
