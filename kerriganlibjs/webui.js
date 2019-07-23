@@ -3,10 +3,9 @@
  * Copyright  2019 - Yu Zhou
  * Email: yu.nico.zhou@gmail.com
  */
-
 var m_console;
 var points_pub;
-
+var uav_num = 10;
 var mission_pub_1;
 var mission_pub_2;
 var mission_pub_3;
@@ -186,12 +185,45 @@ function viewImage(uav_ip){
     zed_image.src = "http://" + uav_ip + ":8080/stream?topic=/zed/left/image_raw_color&type=ros_compressed";
 }
 
+function taskManeger(){
+    document.getElementById("engine0").onclick = function(){
+        m_console.innerHTML = "Clear previous UAV reference";
+        var msg = new ROSLIB.Message({data : 0});
+        for (var table_id=1; table_id<=uav_num; table_id++){
+            window['mission_pub_'+table_id].publish(msg);
+        }
+    }
+
+    document.getElementById("takeoff").onclick = function(){
+        m_console.innerHTML = "Taking off";
+        var msg = new ROSLIB.Message({data : 1});
+        for (var table_id=1; table_id<=uav_num; table_id++){
+            window['mission_pub_'+table_id].publish(msg);
+        }
+    }
+
+    document.getElementById("mission").onclick = function(){
+        m_console.innerHTML = "Mission Start";
+        var msg = new ROSLIB.Message({data : 2});
+        for (var table_id=1; table_id<=uav_num; table_id++){
+            window['mission_pub_'+table_id].publish(msg);
+        }
+    }
+
+    document.getElementById("landing").onclick = function(){
+        m_console.innerHTML = "Landing";
+        var msg = new ROSLIB.Message({data : 3});
+        for (var table_id=1; table_id<=uav_num; table_id++){
+            window['mission_pub_'+table_id].publish(msg);
+        }
+    }
+}
 window.onload = function () {
     
     robot_IP = location.hostname;
     // Init handle for rosbridge_websocket
    
-    for (var table_id=1; table_id<=2; table_id++){
+    for (var table_id=1; table_id<=uav_num; table_id++){
         var uav_ip =  document.getElementById(table_id+"_in").value;
         var uav_id = document.getElementById("id_"+table_id).textContent;
 
@@ -202,40 +234,11 @@ window.onload = function () {
     viewImage(robot_IP);
     // viewMap();
     // subscribeRosout();
-    // m_console = document.getElementById("m_console");
 
-    document.getElementById("engine0").onclick = function(){
-        // m_console.innerHTML = "Clear previous UAV status!";
-        var msg = new ROSLIB.Message({data : 0});
-        for (var table_id=1; table_id<=2; table_id++){
-            window['mission_pub_'+table_id].publish(msg);
-        }
-        
-    }
-
-    document.getElementById("takeoff").onclick = function(){
-        // m_console.innerHTML = "Taking off!";
-        var msg = new ROSLIB.Message({data : 1});
-        for (var table_id=1; table_id<=2; table_id++){
-            window['mission_pub_'+table_id].publish(msg);
-        }
-    }
-
-    document.getElementById("mission").onclick = function(){
-        // m_console.innerHTML = "Start mission";
-        var msg = new ROSLIB.Message({data : 2});
-        for (var table_id=1; table_id<=2; table_id++){
-            window['mission_pub_'+table_id].publish(msg);
-        }
-    }
-
-    document.getElementById("landing").onclick = function(){
-        // m_console.innerHTML = "Landing";
-        var msg = new ROSLIB.Message({data : 3});
-        for (var table_id=1; table_id<=2; table_id++){
-            window['mission_pub_'+table_id].publish(msg);
-        }
-    }
+    //Get elements
+    m_console = document.getElementById("m_console");
+    taskManeger();  // send command 
+   
     
 
     // Document.getElementById("wp_send").onclick = function(){

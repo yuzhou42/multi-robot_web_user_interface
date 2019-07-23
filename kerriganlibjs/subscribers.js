@@ -51,30 +51,6 @@ function subscribeRosout(){
         });
 }
 
-
-
-// function subscribeZEDPoseInfo(){
-//     var listener = new ROSLIB.Topic({
-//         ros : ros,
-//         name : '/zed/pose',
-//         messageType : 'geometry_msgs/PoseStamped'
-//     });
-
-//     listener.subscribe(function(msg){
-//         document.getElementById("x_zed").innerHTML = msg.pose.position.x.toFixed(2);
-//         document.getElementById("y_zed").innerHTML = msg.pose.position.y.toFixed(2);
-//         document.getElementById("z_zed").innerHTML = msg.pose.position.z.toFixed(2);
-        
-//         var q = msg.pose.orientation;
-//         var yaw = - Math.atan2(2.0*(q.x*q.y + q.w*q.z), (q.w*q.w + q.x*q.x - q.y*q.y - q.z*q.z))/Math.PI*180;
-//         // var yaw = Math.asin(-2.0*(q.x*q.z - q.w*q.y))/Math.PI*180;
-//         // var yaw = Math.atan2(2.0*(q.y*q.z + q.w*q.x), q.w*q.w - q.x*q.x - q.y*q.y + q.z*q.z)/Math.PI*180;
-//         document.getElementById("yaw_zed").innerHTML = yaw.toFixed(0);
-//         var yaw_local = yaw.toFixed(0);
-//         // atan2(2.0*(q.y*q.z + q.w*q.x), q.w*q.w - q.x*q.x - q.y*q.y + q.z*q.z);
-//     });
-// }
-
 function subscribeUAVPoseInfo(uav_id, table_id){
     
     var listener = new ROSLIB.Topic({
