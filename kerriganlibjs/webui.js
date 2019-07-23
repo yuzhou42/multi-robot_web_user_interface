@@ -5,7 +5,13 @@
  */
 var m_console;
 var points_pub;
-var uav_num = 10;
+var uav_num = 1;
+var google_map;
+var pathOpacity = 1.0;
+var pathWeight = 2;
+var pathColor = ["#ffff00","#ff0000","#ff8000",  "#80ff00", "#00ff80",
+"#00ffff", "#0000ff", "	#8000ff", "	#ff00bf", "	#ff0040"];
+
 var mission_pub_1;
 var mission_pub_2;
 var mission_pub_3;
@@ -27,6 +33,17 @@ var ros_7;
 var ros_8;
 var ros_9;
 var ros_10;
+
+var gps_path_1;
+var gps_path_2;
+var gps_path_3;
+var gps_path_4;
+var gps_path_5;
+var gps_path_6;
+var gps_path_7;
+var gps_path_8;
+var gps_path_9;
+var gps_path_10;
 
 function rosConnection(table_id,table_cell, uav_ip) {
     //vip: it is important to use reference here instead of value as a parameter
@@ -92,94 +109,6 @@ function initMissionPublisher(uav_id, table_id) {
     window['mission_pub_'+table_id].advertise();
 }
 
-function viewMap(){
-    // Create the main viewer.
-    var viewer = new ROS3D.Viewer({
-        divID : 'rviz',
-        width : 820,
-        height : 350,
-        // far: 300,
-        cameraPose: {x: 0, y: 0, z: 15},
-        cameraZoomSpeed: 2.0,
-        antialias : true
-        });
-    viewer.addObject(new ROS3D.Grid({
-        num_cells: 40,
-        cellSize: 1,
-        color: 0xa0a0a4
-    }));
-    // add one axes
-    viewer.addObject(new ROS3D.Axes({
-        ros: ros,
-        tfClient: tfClient,
-        shaftRadius: 0.1,
-        headRadius: 0.3,
-        headLength: 0.4,
-        scale: 1.0,
-        lineDashLength: 1.0
-    }));
-        // Setup a client to listen to TFs.
-    var tfClient = new ROSLIB.TFClient({
-        ros : ros,
-        angularThres : 0.01,
-        transThres : 0.01,
-        rate : 10.0,
-        fixedFrame : 'map'
-        });
-    var cloudClient = new ROS3D.PointCloud2({
-        ros: ros,
-        tfClient: tfClient,
-        rootObject: viewer.scene,
-        // max_pts: 307200,
-        topic: '/points2',
-        compression: '',
-        material: { size: 0.3, color: 0x87CEEB }
-    });
-    var poseGlobalClient = new ROS3D.PoseWithCovariance({
-        ros: ros,
-        topic: '/ekf_fusion/pose',
-        rootObject: viewer.scene,
-        tfClient: tfClient,
-        keep: 3,
-        length: 1,
-        headLength: 0.5,
-        shaftDiameter: 0.3,
-        headDiameter:0.6,
-        color: 0xFFB6C1 //pink
-      });
-
-    var poseLocalClient = new ROS3D.PoseWithCovariance({
-        ros: ros,
-        topic: '/ekf_fusion/pose_local',
-        rootObject: viewer.scene,
-        tfClient: tfClient,
-        keep: 3,
-        length: 1,
-        headLength: 0.5,
-        shaftDiameter: 0.3,
-        headDiameter:0.6,
-        color: 0xFFD700 //yellow
-      });
-          // Add LaserScan data
-    // var laserClient = new ROS3D.LaserScan({
-    //     ros: ros,
-    //     tfClient: tfClient,
-    //     rootObject: viewer.scene,
-    //     topic: '/scan',
-    //     max_pts: 720,
-    //     material : { color: 0xF4A460, size: 0.3}
-    //   });
-
-        // Add Path
-    // var pathClient = new ROS3D.Path({
-    //     ros: ros,
-    //     tfClient: tfClient,
-    //     rootObject: viewer.scene,
-    //     topic: '/path',
-    //     color: 0xff0000
-    //   });
-}
-
 function viewImage(uav_ip){
     var zed_image =  document.getElementById('zed_image');
     zed_image.src = "http://" + uav_ip + ":8080/stream?topic=/zed/left/image_raw_color&type=ros_compressed";
@@ -218,8 +147,27 @@ function taskManeger(){
         }
     }
 }
-window.onload = function () {
-    
+
+function initMap() {
+   
+    google_map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 17,
+        // center: {lat: 1.329446, lng: 103.785627}, //holland road
+        center: {lat: 47.11967, lng: 8.6695}, // test data
+        mapTypeId: 'satellite'
+      });
+
+    for (var table_id=1; table_id<=uav_num; table_id++){
+        window['gps_path_'+table_id] = new google.maps.Polyline({
+            strokeColor: pathColor[table_id-1],
+            strokeOpacity: pathOpacity,
+            strokeWeight: pathWeight
+          });
+        window['gps_path_'+table_id].setMap(google_map);
+    }
+  }
+
+window.onload = function () {   
     robot_IP = location.hostname;
     // Init handle for rosbridge_websocket
    
@@ -232,11 +180,13 @@ window.onload = function () {
         initMissionPublisher(uav_id, table_id);
     }
     viewImage(robot_IP);
-    // viewMap();
     // subscribeRosout();
+    subscribeGPS(1, 1);
 
     //Get elements
     m_console = document.getElementById("m_console");
+    // google_map = document.getElementById('google_map');
+        // initMap();
     taskManeger();  // send command 
    
     

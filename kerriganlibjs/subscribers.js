@@ -75,4 +75,19 @@ function subscribeUAVPoseInfo(uav_id, table_id){
     });
 }
 
+function subscribeGPS(uav_id, table_id){
+    
+    var listener = new ROSLIB.Topic({
+        ros : window['ros_'+ table_id],
+        name : '/px4/raw/gps' ,
+        messageType : 'sensor_msgs/NavSatFix'
+    });
+    listener.subscribe(function(msg){
+        // alert(msg.latitude); 
+        var path = gps_path_1.getPath();;
+        var polyLatLng = new google.maps.LatLng(msg.latitude, msg.longitude);
+        path.push(polyLatLng);
+        // alert(path.getLength());
+    });
+}
 
