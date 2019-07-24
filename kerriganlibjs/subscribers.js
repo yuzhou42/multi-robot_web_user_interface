@@ -79,7 +79,8 @@ function subscribeGPS(uav_id, table_id){
     
     var listener = new ROSLIB.Topic({
         ros : window['ros_'+ table_id],
-        name : '/px4/raw/gps' ,
+        name : '/mavros/global_position/global/sys_id_'  + uav_id,
+        // name : '/px4/raw/gps' ,
         messageType : 'sensor_msgs/NavSatFix'
     });
     listener.subscribe(function(msg){
@@ -87,6 +88,18 @@ function subscribeGPS(uav_id, table_id){
         var path = gps_path_1.getPath();;
         var polyLatLng = new google.maps.LatLng(msg.latitude, msg.longitude);
         path.push(polyLatLng);
+        
+        if(markers[table_id-1])
+            markers[table_id-1].setMap(null); // clear marker before adding
+        var marker = new google.maps.Marker({
+            position: {lat: msg.latitude, lng:  msg.longitude},
+            map: google_map,
+            label: uav_id
+        });
+        markers[table_id-1] = marker;
+        markers[table_id-1].setMap(google_map);
+       
+         
         // alert(path.getLength());
     });
 }

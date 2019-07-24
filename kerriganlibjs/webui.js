@@ -3,15 +3,17 @@
  * Copyright  2019 - Yu Zhou
  * Email: yu.nico.zhou@gmail.com
  */
-var m_console;
+var m_console; // console of uav status
 var points_pub;
-var uav_num = 1;
-var google_map;
-var pathOpacity = 1.0;
-var pathWeight = 2;
+var uav_num = 1; //number of drones
+var google_map; //map instance
+var pathOpacity = 1.0; // path opacity
+var pathWeight = 2; //path width
 var pathColor = ["#ffff00","#ff0000","#ff8000",  "#80ff00", "#00ff80",
-"#00ffff", "#0000ff", "	#8000ff", "	#ff00bf", "	#ff0040"];
+"#00ffff", "#0000ff", "	#8000ff", "	#ff00bf", "	#ff0040"]; //path color
+var markers = []; //Google map markers 
 
+// mission from ui
 var mission_pub_1;
 var mission_pub_2;
 var mission_pub_3;
@@ -23,6 +25,7 @@ var mission_pub_8;
 var mission_pub_9;
 var mission_pub_10;
 
+// ros instance
 var ros_1;
 var ros_2;
 var ros_3;
@@ -34,6 +37,7 @@ var ros_8;
 var ros_9;
 var ros_10;
 
+//trajectory of UAVs
 var gps_path_1;
 var gps_path_2;
 var gps_path_3;
@@ -72,6 +76,13 @@ function changeIp(ip, id) {
     // alert("I'm in"+id_s2i);
     rosConnection(window['ros_'+ id_s2i], document.getElementById("roslibjs_status_"+id_s2i), ip); 
   }
+
+function triggerSwarm(){
+    if (document.getElementById('swarm_toggle').checked) 
+    {
+        // alert("Checked")
+    } 
+}  
 function initVelocityPublisher() {
     // Init message with zero values.
     twist = new ROSLIB.Message({
@@ -153,7 +164,8 @@ function initMap() {
     google_map = new google.maps.Map(document.getElementById('map'), {
         zoom: 17,
         // center: {lat: 1.329446, lng: 103.785627}, //holland road
-        center: {lat: 47.11967, lng: 8.6695}, // test data
+        center: {lat: 1.299993, lng: 103.772041}, // test data tlab
+        // center: {lat: 47.11967, lng: 8.6695}, // test data
         mapTypeId: 'satellite'
       });
 
@@ -178,15 +190,12 @@ window.onload = function () {
         rosConnection(table_id,document.getElementById("roslibjs_status_"+table_id),uav_ip);
         subscribeUAVPoseInfo(uav_id , table_id);
         initMissionPublisher(uav_id, table_id);
+        subscribeGPS(uav_id, table_id);
     }
     viewImage(robot_IP);
     // subscribeRosout();
-    subscribeGPS(1, 1);
-
     //Get elements
     m_console = document.getElementById("m_console");
-    // google_map = document.getElementById('google_map');
-        // initMap();
     taskManeger();  // send command 
    
     
