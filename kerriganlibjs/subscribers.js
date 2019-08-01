@@ -7,47 +7,55 @@ var yaw_global;
 var yaw_local;
 var z_global;
 
-function subscribeRosout(){
+function subscribeRosout(table_id){
         //// Subscribe to /rosout
         var listener = new ROSLIB.Topic({
-            ros : ros,
+            ros : window['ros_'+ table_id],
             name : '/rosout_agg',
             messageType : 'rosgraph_msgs/Log'
         });
         
         // subscriber callback
         listener.subscribe(function(msg){
+            var CLASS_NAME;
+            //http://docs.ros.org/hydro/api/rosgraph_msgs/html/msg/Log.html
             switch(msg.name){
                 case '/ddrone_task_manager':
-                    var taskManagerConsole = document.getElementById("m_console");
+                    switch(msg.level){ 
+                        case 1: //debug
+                            // alert("kidding");
+                            CLASS_NAME = "text-primary";
+                            break;
+                        case 2: // info
+                            CLASS_NAME = "text-primary";
+                            break;
+                        case 4: // warning
+                            CLASS_NAME = "text-warning";
+                            var uav_status = document.getElementById("uav_status_"+table_id);
+                            uav_status.className = CLASS_NAME;
+                            uav_status.innerHTML = msg.msg;
+                            break;
+                        case 8: //error
+                        case 16: // fatal
+                            CLASS_NAME = "text-danger";
+                            break;
+                    }
+                    
+                    var taskManagerConsole = document.getElementById("console_span_"+table_id);
+                    taskManagerConsole.className = CLASS_NAME;
                     taskManagerConsole.innerHTML = msg.msg;
                     break;
                 default : 
                     // console.log(msg.name + ": " + msg.msg);
                     break;
             }
-            var CLASS_NAME;
-            switch(msg.level){
-                case 2: // info
-                    CLASS_NAME = "text-primary";
-                    break;
-                case 4: // warning
-                    CLASS_NAME = "text-warning";
-                    break;
-                case 8: //error
-                case 16: // fatal
-                    CLASS_NAME = "text-danger";
-                    break;
-            }
-            var myConsole = document.getElementById("uav_cosole");
-            var para = document.createElement("p");
-            para.textContent = 'seq ' + msg.header.seq + ' > ' +   msg.name + ": " + msg.msg;
-            para.style.cssText = 'margin-bottom: 0px;';
-            para.className = CLASS_NAME;
-            // myConsole.innerHTML = para.textContent;
-            // myConsole.appendChild(para);
-            myConsole.insertBefore(para, myConsole.childNodes[0]);
-            // console.log(msg);
+
+            // var myConsole = document.getElementById("uav_cosole");
+            // var para = document.createElement("p");
+            // para.textContent = 'seq ' + msg.header.seq + ' > ' +   msg.name + ": " + msg.msg;
+            // para.style.cssText = 'margin-bottom: 0px;';
+            // para.className = CLASS_NAME;
+            // myConsole.insertBefore(para, myConsole.childNodes[0]);
         });
 }
 
@@ -101,6 +109,34 @@ function subscribeGPS(uav_id, table_id){
        
          
         // alert(path.getLength());
+    });
+}
+
+function subscribeBattery(uav_id, table_id){
+    
+    var listener = new ROSLIB.Topic({
+        ros : window['ros_'+ table_id],
+        name : '/mavros/battery/sys_id_'  + uav_id,
+        // name : '/px4/raw/gps' ,
+        messageType : 'mavros/BatteryStatus'
+    });
+    listener.subscribe(function(msg){
+        // alert(uav_id);
+        document.getElementById("battery_"+table_id).innerHTML = msg.voltage.toFixed(2);
+    });
+}
+
+function subscribeAltitude(uav_id, table_id){
+    
+    var listener = new ROSLIB.Topic({
+        ros : window['ros_'+ table_id],
+        name : '/mavros/global_position/global/sys_id_'  + uav_id,
+        // name : '/px4/raw/gps' ,
+        messageType : 'sensor_msgs/NavSatFix'
+    });
+    listener.subscribe(function(msg){
+        // alert(uav_id);
+        document.getElementById("altitude_"+table_id).innerHTML = msg.altitude.toFixed(2);
     });
 }
 

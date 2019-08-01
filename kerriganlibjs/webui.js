@@ -12,6 +12,7 @@ var pathWeight = 2; //path width
 var pathColor = ["#ffff00","#ff0000","#ff8000",  "#80ff00", "#00ff80",
 "#00ffff", "#0000ff", "	#8000ff", "	#ff00bf", "	#ff0040"]; //path color
 var markers = []; //Google map markers 
+var img_IP;
 
 // mission from ui
 var mission_pub_1;
@@ -81,7 +82,10 @@ function triggerSwarm(){
     if (document.getElementById('swarm_toggle').checked) 
     {
         // alert("Checked")
+        document.getElementById("mission").disabled = true;
     } 
+    else
+        document.getElementById("mission").disabled = false;
 }  
 function initVelocityPublisher() {
     // Init message with zero values.
@@ -122,9 +126,16 @@ function initMissionPublisher(uav_id, table_id) {
 
 function viewImage(uav_ip){
     var zed_image =  document.getElementById('zed_image');
-    zed_image.src = "http://" + uav_ip + ":8080/stream?topic=/zed/left/image_raw_color&type=ros_compressed";
+    zed_image.src = "http://" + uav_ip + ":8080/stream?topic=/camera/image_raw&type=ros_compressed";
+    // zed_image.src = "http://" + uav_ip + ":8080/stream?topic=/zed/depth/depth_registered&type=mjpeg";
 }
 
+function changeImg(id){
+    var id_s2i = parseInt(id,10);
+    // alert("I'm in "+id_s2i);
+    img_IP =  document.getElementById(id_s2i+"_in").value;
+    viewImage(img_IP);
+}
 function taskManeger(){
     document.getElementById("engine0").onclick = function(){
         m_console.innerHTML = "Clear previous UAV reference";
@@ -163,8 +174,8 @@ function initMap() {
    
     google_map = new google.maps.Map(document.getElementById('map'), {
         zoom: 17,
-        // center: {lat: 1.329446, lng: 103.785627}, //holland road
-        center: {lat: 1.299993, lng: 103.772041}, // test data tlab
+        center: {lat: 1.32854998112, lng: 103.786003113}, //holland road
+        // center: {lat: 1.299993, lng: 103.772041}, // test data tlab
         // center: {lat: 47.11967, lng: 8.6695}, // test data
         mapTypeId: 'satellite'
       });
@@ -180,25 +191,26 @@ function initMap() {
   }
 
 window.onload = function () {   
-    robot_IP = location.hostname;
+    // robot_IP = location.hostname;
     // Init handle for rosbridge_websocket
    
     for (var table_id=1; table_id<=uav_num; table_id++){
         var uav_ip =  document.getElementById(table_id+"_in").value;
         var uav_id = document.getElementById("id_"+table_id).textContent;
-
+          
         rosConnection(table_id,document.getElementById("roslibjs_status_"+table_id),uav_ip);
         subscribeUAVPoseInfo(uav_id , table_id);
-        initMissionPublisher(uav_id, table_id);
+        initMissionPublisher(uav_id, table_id);  
         subscribeGPS(uav_id, table_id);
+  
+        subscribeRosout(table_id);
+        if(document.getElementById(table_id+"_img").checked)
+            img_IP = uav_ip;
     }
-    viewImage(robot_IP);
-    // subscribeRosout();
-    //Get elements
+    viewImage(img_IP);
     m_console = document.getElementById("m_console");
     taskManeger();  // send command 
-   
-    
+}
 
     // Document.getElementById("wp_send").onclick = function(){
     //     // var points_pub = new ROSLIB.Topic({
@@ -211,8 +223,6 @@ window.onload = function () {
     //     // points_pub.publish(msg);
     
     // }
-}
-
 
 // trigger a service
 // var trigger_engine0 = new ROSLIB.ServiceRequest({});
