@@ -202,7 +202,8 @@ window.onload = function () {
         subscribeUAVPoseInfo(uav_id , table_id);
         initMissionPublisher(uav_id, table_id);  
         subscribeGPS(uav_id, table_id);
-  
+        subscribeAltitude(uav_id, table_id);
+        subscribeBattery(uav_id, table_id);
         subscribeRosout(table_id);
         if(document.getElementById(table_id+"_img").checked)
             img_IP = uav_ip;

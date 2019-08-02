@@ -135,7 +135,7 @@ function subscribeAltitude(uav_id, table_id){
         messageType : 'sensor_msgs/NavSatFix'
     });
     listener.subscribe(function(msg){
-        // alert(uav_id);
+        // alert(table_id);
         document.getElementById("altitude_"+table_id).innerHTML = msg.altitude.toFixed(2);
     });
 }
