@@ -105,17 +105,18 @@ $ roslaunch your_packages ui.launch
 
 ## 2. Access UI web page on local ground station
 
+- Access by IP
+  
+    Try "Open Incognito Window" in your web browser and put 127.0.0.1, you will be able to see the UI if you set everything correctly.
+
 - Access From Vscode
 
   - Open your workspace with Vscode
   - Right click index.html in your Vscode
   - Click "Open with Live Server" and then the web will show up in your browser
 
-- Access by IP
-  
-  Put the 127.0.0.1 in any web browswer, you will be able to see the UI if you set everything correctly
-
 - Usage and Parameters
+  
   - Choose image that you want to show from the UI
   - Send mission commmand if you want to test with waypoints
   - Toggle Swarm to the right side if you want to test swarm algorithm and no need to send the mission command.
