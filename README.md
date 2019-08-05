@@ -2,8 +2,8 @@
 # overview
 Ｔhis package is for web-based UI shown as the image. It can connect to multiple drones by their IP address and show status of each drone, such as positon, image, healthy status etc. User can sent commands (takeoff, mission, landing) to drone directly from the UI. Moreover, a Google map is inserted to show realtime location of the drone. 
 
-<img src="kerriganlibjs/kerrigan_ui.png" alt="UI" width="640"/>
-
+<!-- <img src="kerriganlibjs/kerrigan_ui.png" alt="UI" width="640"/> -->
+![UI](kerriganlibjs/kerrigan_ui.png)
 **User Interface**
 
 # Installation
@@ -106,7 +106,7 @@ $ roslaunch your_packages ui.launch
 ## 2. Access UI web page on local ground station
 
 - Access From Vscode
-- 
+
   - Open your workspace with Vscode
   - Right click index.html in your Vscode
   - Click "Open with Live Server" and then the web will show up in your browser
@@ -114,6 +114,14 @@ $ roslaunch your_packages ui.launch
 - Access by IP
   
   Put the 127.0.0.1 in any web browswer, you will be able to see the UI if you set everything correctly
+
+- Usage and Parameters
+  - Choose image that you want to show from the UI
+  - Send mission commmand if you want to test with waypoints
+  - Toggle Swarm to the right side if you want to test swarm algorithm and no need to send the mission command.
+  - Change IP of each UAV in the index.html or on the UI directly. 
+  - Modify ID as the UAV's system ID
+
    
 
 # Tutorials and useful websites
