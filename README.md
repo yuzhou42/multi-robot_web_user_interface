@@ -57,15 +57,15 @@ After the development stage, you will have to deploy the web page, thus it can b
 
 ## Onboard TX2 setup
 ###  Download ros web server packages
-- web_video_server (It launches the server for streaming ROS image messages as video through the web.)
+- web_video_server
     ```
     $ sudo apt-get install ros-kinetic-web-video-server
-
+      It launches the server for streaming ROS image messages as video through the web.
     ```
--  rosbridge_server (It launches the web sockets to allow web apps to publish or subscribe ROS messages.)
+-  rosbridge_server
     ```
     $ sudo apt-get install ros-kinetic-rosbridge-suite
-  
+      It launches the web sockets to allow web apps to publish or subscribe ROS messages.
     ``` 
 - tf2-web-republisher
    ```
