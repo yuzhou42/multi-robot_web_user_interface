@@ -5,7 +5,7 @@
  */
 var m_console; // console of uav status
 var points_pub;
-var uav_num = 1; //number of drones
+var uav_num = 4; //number of drones
 var google_map; //map instance
 var pathOpacity = 1.0; // path opacity
 var pathWeight = 2; //path width
@@ -19,36 +19,40 @@ var mission_pub_1;
 var mission_pub_2;
 var mission_pub_3;
 var mission_pub_4;
-var mission_pub_5;
-var mission_pub_6;
-var mission_pub_7;
-var mission_pub_8;
-var mission_pub_9;
-var mission_pub_10;
+
 
 // ros instance
 var ros_1;
 var ros_2;
 var ros_3;
 var ros_4;
-var ros_5;
-var ros_6;
-var ros_7;
-var ros_8;
-var ros_9;
-var ros_10;
+
 
 //trajectory of UAVs
 var gps_path_1;
 var gps_path_2;
 var gps_path_3;
 var gps_path_4;
-var gps_path_5;
-var gps_path_6;
-var gps_path_7;
-var gps_path_8;
-var gps_path_9;
-var gps_path_10;
+
+var file_1;
+var file_2;
+var file_3;
+var file_4;
+
+var fileReader_1;
+var fileReader_2;
+var fileReader_3;
+var fileReader_4;
+
+var sendRefTimer;
+
+var ref_1;
+var ref_2;
+var ref_3;
+var ref_4;
+
+var ref_num;
+
 
 function rosConnection(table_id,table_cell, uav_ip) {
     //vip: it is important to use reference here instead of value as a parameter
@@ -124,6 +128,20 @@ function initMissionPublisher(uav_id, table_id) {
     window['mission_pub_'+table_id].advertise();
 }
 
+function initRefPublisher(uav_id, table_id) {
+    // Init message with zero values.
+
+    // Init topic object
+    window['ref_'+table_id] = new ROSLIB.Topic({
+        ros : window['ros_'+ table_id],
+        name : '/rt_ref_gen/current_state_'+ uav_id,
+        messageType : 'common_msgs/state'
+    });
+    // Register publisher within ROS system
+    window['ref_'+table_id].advertise();
+}
+
+
 function viewImage(uav_ip){
     var zed_image =  document.getElementById('zed_image');
     zed_image.src = "http://" + uav_ip + ":8080/stream?topic=/camera/image_raw&type=ros_compressed";
@@ -154,6 +172,7 @@ function taskManeger(){
     }
 
     document.getElementById("mission").onclick = function(){
+        sendRefTimer = setInterval(sendRef, 20);
         m_console.innerHTML = "Mission Start";
         var msg = new ROSLIB.Message({data : 2});
         for (var table_id=1; table_id<=uav_num; table_id++){
@@ -162,6 +181,8 @@ function taskManeger(){
     }
 
     document.getElementById("landing").onclick = function(){
+        clearInterval(sendRefTimer);
+
         m_console.innerHTML = "Landing";
         var msg = new ROSLIB.Message({data : 3});
         for (var table_id=1; table_id<=uav_num; table_id++){
@@ -190,28 +211,110 @@ function initMap() {
     }
   }
 
-window.onload = function () {   
+function sendRef(){
+    var stopSending = 0;
+    for (var table_id=1; table_id<=uav_num; table_id++){
+      
+        if(ref_num<window['file_'+ table_id].length)
+        {
+            stopSending = stopSending + 1;
+            var refLine = window['file_'+ table_id][ref_num].split(" ");
+            console.log(refLine);
+            if(refLine.length == 9)
+            {
+                var refMsg = new ROSLIB.Message({
+                    pos: {
+                        x: refLine[0],
+                        y: refLine[1],
+                        z: refLine[2]
+                    },
+                    vel: {
+                        x: refLine[3],
+                        y: refLine[4],
+                        z: refLine[5]
+                    },
+            
+                    acc: {
+                        x: refLine[6],
+                        y: refLine[7],
+                        z: refLine[8]
+                    }
+                });
+                window['ref_'+table_id].publish(refMsg);
+            }
+        }
+    }
+
+    if(stopSending)
+    {
+        ref_num = ref_num + 1;
+
+    }
+    // console.log(ref_num);
+}
+
+window.onload = function () {  
     // robot_IP = location.hostname;
     // Init handle for rosbridge_websocket
+    ref_num = 0;
    
     for (var table_id=1; table_id<=uav_num; table_id++){
         var uav_ip =  document.getElementById(table_id+"_in").value;
         var uav_id = document.getElementById("id_"+table_id).textContent;
+        // console.log(uav_ip);
           
         rosConnection(table_id,document.getElementById("roslibjs_status_"+table_id),uav_ip);
         subscribeUAVPoseInfo(uav_id , table_id);
         initMissionPublisher(uav_id, table_id);  
-        subscribeGPS(uav_id, table_id);
-        subscribeAltitude(uav_id, table_id);
+        // subscribeGPS(uav_id, table_id);
+        // subscribeAltitude(uav_id, table_id);
         subscribeBattery(uav_id, table_id);
         subscribeRosout(table_id);
-        if(document.getElementById(table_id+"_img").checked)
-            img_IP = uav_ip;
+        initRefPublisher(uav_id, table_id);
+        // if(document.getElementById(table_id+"_img").checked)
+        //     img_IP = uav_ip;
     }
-    viewImage(img_IP);
+    // viewImage(img_IP);
     m_console = document.getElementById("m_console");
     taskManeger();  // send command 
-}
+
+    document.getElementById('upload_file').onchange = function(){
+        var filelist = this.files;
+
+        function setupReader(file) {
+            var file_id = parseInt(file.name);
+            window['fileReader_'+ file_id]  = new FileReader();
+            window['fileReader_'+ file_id].onload = function(progressEvent){
+                console.log(file_id);
+            // var contents = progressEvent.target.result;
+            // console.log("File contents: " + contents);
+            window['file_'+ file_id] = this.result.split('\n').slice(0);//Array.from(
+            // for(var line = 0; line < lines.length; line++){
+            // var res = lines[line].split(" ");
+            console.log(window['file_'+ file_id]);
+            // console.log(i);
+            // }
+            }
+            window['fileReader_'+ file_id].readAsText(file);
+
+        }
+        for (var i = 0; i < filelist.length; i++) {
+            setupReader(filelist[i]);
+        }
+        
+      };
+
+     
+     
+
+     
+      
+
+   
+
+} 
+
+// }
 
     // Document.getElementById("wp_send").onclick = function(){
     //     // var points_pub = new ROSLIB.Topic({

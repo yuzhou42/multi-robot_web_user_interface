@@ -6,12 +6,10 @@
 <html lang="en">
   <style>
 /* force to remove margin in table  */
-      tr td{
+      /* tr td{
           padding: 0 !important;
           margin: 0 !important;
-          /* height: 15px; */
-          /* overflow:hidden; */
-          }
+          } */
       /* fixed colomn */
       .uav_scroller {
           margin-left: 4%;
@@ -46,7 +44,7 @@
       
   </style>
   <head>
-    <title>Kerrigan UI</title>
+    <title>Calligraphy UI</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -58,21 +56,23 @@
     <script src="./roslibjs/roslib.min.js"></script>
     <script src="./roslibjs/eventemitter2.js"></script>
     <script src="./roslibjs/ros3d.js"></script>
+
+    <script type="text/javascript" src="bootstrap/jquery-1.12.4.min.js"></script>
   
     
     <script src="kerriganlibjs/webui.js"></script>
     <script src="kerriganlibjs/subscribers.js"></script>
 <!-- google map -->
-    <script async defer
+    <!-- <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZosUgHCrvo9AvwD0VMluJlghEn113jm0&callback=initMap">
-    </script>
+    </script> -->
 
   </head>
 
   <body class="bg-light">
     <!-- navigation bar -->
     <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top" >
-      <a class="navbar-brand" href="#">Kerrigan</a>
+      <a class="navbar-brand" href="#">Calligraphy</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -121,7 +121,7 @@
                   <th scope="col">x</th>
                   <th scope="col">y</th>
                   <th scope="col">z</th>     
-                  <th scope="col">Alt</th>   
+               
                   <th scope="col">Yaw</th>  
                   <!-- <th scope="col">GPS</th>  -->
                   <th scope="col">Battery</th>  
@@ -132,7 +132,7 @@
                 <tbody>
                 <tr  class="table" >
                   <td  class="sticky-col" id="id_1">11</td>
-                  <td id="ip_1"><input type="text" value="192.168.1.108" class="input-sm" style='width:7.5em; text-align: center;' id="1_in" onchange="changeIp(this.value, this.id)"></td>
+                  <td id="ip_1"><input type="text" value="192.168.1.3" class="input-sm" style='width:7.5em; text-align: center;' id="1_in" onchange="changeIp(this.value, this.id)"></td>
                   <td id="roslibjs_status_1">Waiting...</td>
                   <td id="toggle_img_1">
                       <div class="custom-control custom-radio">
@@ -144,7 +144,7 @@
                   <td id="x_1"></td>
                   <td id="y_1"></td>
                   <td id="z_1"></td>
-                  <td id="altitude_1"></td>
+                  
                   <td id="heading_1"></td>
                   <!-- <td id="gps_1"></td> -->
                   <td id="battery_1"></td>
@@ -165,7 +165,7 @@
                   <td id="x_2"></td>
                   <td id="y_2"></td>
                   <td id="z_2"></td>
-                  <td id="altitude_2"></td>
+                  
                   <td id="heading_2"></td>
                   <!-- <td id="gps_2"></td> -->
                   <td id="battery_2"></td>
@@ -185,7 +185,7 @@
                   <td id="x_3"></td>
                   <td id="y_3"></td>
                   <td id="z_3"></td>
-                  <td id="altitude_3"></td>
+                 
                   <td id="heading_3"></td>
                   <!-- <td id="gps_3"></td> -->
                   <td id="battery_3"></td>
@@ -205,131 +205,11 @@
                   <td id="x_4"></td>
                   <td id="y_4"></td>
                   <td id="z_4"></td>
-                  <td id="altitude_4"></td>
+                
                   <td id="heading_4"></td>
                   <!-- <td id="gps_4"></td> -->
                   <td id="battery_4"></td>
                   <td id="console_4"><div id="console_span_4" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
-                </tr>
-                <tr  class="table">
-                  <td  class="sticky-col" id="id_5">5</td>
-                  <td id="ip_5"><input type="text" value="127.0.0.1" class="input-sm" style='width:7.5em; text-align: center;' id="5_in" onchange="changeIp(this.value, this.id)"></td>
-                  <td id="roslibjs_status_5">Waiting...</td>
-                  <td id="toggle_img_5">
-                      <div class="custom-control custom-radio">
-                          <input type="radio" id="5_img" name="customRadio" class="custom-control-input"  onclick="changeImg(this.id)">
-                          <label class="custom-control-label" for="5_img"></label>
-                      </div>
-                  </td>
-                  <td id="uav_status_5"></td>
-                  <td id="x_5"></td>
-                  <td id="y_5"></td>
-                  <td id="z_5"></td>
-                  <td id="altitude_5"></td>
-                  <td id="heading_5"></td>
-                  <!-- <td id="gps_5"></td> -->
-                  <td id="battery_5"></td>
-                  <td id="console_5"><div id="console_span_5" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
-                </tr>
-                <tr  class="table">
-                  <td  class="sticky-col" id="id_6">6</td>
-                  <td id="ip_6"><input type="text" value="127.0.0.1" class="input-sm" style='width:7.5em; text-align: center;' id="6_in" onchange="changeIp(this.value, this.id)"></td>
-                  <td id="roslibjs_status_6">Waiting...</td>
-                  <td id="toggle_img_6">
-                      <div class="custom-control custom-radio">
-                          <input type="radio" id="6_img" name="customRadio" class="custom-control-input"  onclick="changeImg(this.id)">
-                          <label class="custom-control-label" for="6_img"></label>
-                      </div>
-                  </td>
-                  <td id="uav_status_6"></td>
-                  <td id="x_6"></td>
-                  <td id="y_6"></td>
-                  <td id="z_6"></td>
-                  <td id="altitude_6"></td>
-                  <td id="heading_6"></td>
-                  <!-- <td id="gps_6"></td> -->
-                  <td id="battery_6"></td>
-                  <td id="console_6"><div id="console_span_6" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
-                </tr>
-                <tr  class="table">
-                  <td class="sticky-col"  id="id_7">7</td>
-                  <td id="ip_7"><input type="text" value="127.0.0.1" class="input-sm" style='width:7.5em; text-align: center;' id="7_in" onchange="changeIp(this.value, this.id)"></td>
-                  <td id="roslibjs_status_7">Waiting...</td>
-                  <td id="toggle_img_7">
-                      <div class="custom-control custom-radio">
-                          <input type="radio" id="7_img" name="customRadio" class="custom-control-input"  onclick="changeImg(this.id)">
-                          <label class="custom-control-label" for="7_img"></label>
-                      </div>
-                  </td>
-                  <td id="uav_status_7"></td>
-                  <td id="x_7"></td>
-                  <td id="y_7"></td>
-                  <td id="z_7"></td>
-                  <td id="altitude_7"></td>
-                  <td id="heading_7"></td>
-                  <!-- <td id="gps_7"></td> -->
-                  <td id="battery_7"></td>
-                  <td id="console_7"><div id="console_span_7" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
-                </tr>
-                <tr  class="table">
-                  <td  class="sticky-col" id="id_8">8</td>
-                  <td id="ip_8"><input type="text" value="127.0.0.1" class="input-sm" style='width:7.5em; text-align: center;' id="8_in" onchange="changeIp(this.value, this.id)"></td>
-                  <td id="roslibjs_status_8">Waiting...</td>
-                  <td id="toggle_img_8">
-                      <div class="custom-control custom-radio">
-                          <input type="radio" id="8_img" name="customRadio" class="custom-control-input"  onclick="changeImg(this.id)">
-                          <label class="custom-control-label" for="8_img"></label>
-                      </div>
-                  </td>
-                  <td id="uav_status_8"></td>
-                  <td id="x_8"></td>
-                  <td id="y_8"></td>
-                  <td id="z_8"></td>
-                  <td id="altitude_8"></td>
-                  <td id="heading_8"></td>
-                  <!-- <td id="gps_8"></td> -->
-                  <td id="battery_8"></td>
-                  <td id="console_8"><div id="console_span_8" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
-                </tr>
-                <tr  class="table">
-                  <td  class="sticky-col" id="id_9">2</td>
-                  <td id="ip_9"><input type="text" value="127.0.0.1" class="input-sm" style='width:7.5em; text-align: center;' id="9_in" onchange="changeIp(this.value, this.id)"></td>
-                  <td id="roslibjs_status_9">Waiting...</td>
-                  <td id="toggle_img_9">
-                      <div class="custom-control custom-radio">
-                          <input type="radio" id="9_img" name="customRadio" class="custom-control-input"  onclick="changeImg(this.id)">
-                          <label class="custom-control-label" for="9_img"></label>
-                      </div>
-                  </td>
-                  <td id="uav_status_9"></td>
-                  <td id="x_9"></td>
-                  <td id="y_9"></td>
-                  <td id="z_9"></td>
-                  <td id="altitude_9"></td>
-                  <td id="heading_9"></td>
-                  <!-- <td id="gps_9"></td> -->
-                  <td id="battery_9"></td>
-                  <td id="console_9"><div id="console_span_9" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
-                </tr>
-                <tr  class="table">
-                  <td  class="sticky-col" id="id_10">10</td>
-                  <td id="ip_10"><input type="text" value="127.0.0.1" class="input-sm" style='width:7.5em; text-align: center;' id="10_in" onchange="changeIp(this.value, this.id)"></td>
-                  <td id="roslibjs_status_10">Waiting...</td>
-                  <td id="toggle_img_10">
-                      <div class="custom-control custom-radio">
-                          <input type="radio" id="10_img" name="customRadio" class="custom-control-input"  onclick="changeImg(this.id)">
-                          <label class="custom-control-label" for="10_img"></label>
-                      </div>
-                  </td>
-                  <td id="uav_status_10"></td>
-                  <td id="x_10"></td>
-                  <td id="y_10"></td>
-                  <td id="z_10"></td>
-                  <td id="altitude_10"></td>
-                  <td id="heading_10"></td>
-                  <!-- <td id="gps_10"></td> -->
-                  <td id="battery_10"></td>
-                  <td id="console_10"><div id="console_span_10" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
                 </tr>
                 
               </tbody>
@@ -340,8 +220,8 @@
 
         <div class="container  col-sm-6 "> 
           <!-- map -->
-          <div  id="map">
-          </div>
+          <!-- <div  id="map">
+          </div> -->
         </div>
       </div> <!-- first row -->
 
@@ -372,10 +252,11 @@
           </div>   
         </div>
         <!-- images -->
-        <div class="card  col-sm-6">
-        <!-- <h3 style="text-align: center;" class="card-header">ZED</h3> -->
-            <img id="zed_image" style="height: 186px; width: 100%; " src=" " alt="Target Tracking">
-        </div>
+        <!-- <form enctype="multipart/form-data"> -->
+          <input type="file"  id="upload_file" multiple/>
+          <!-- <input type="button" value="Upload" id="upload_file"/> -->
+      <!-- </form> -->
+      <!-- <progress></progress> -->
       </div> <!-- second row -->
 
     </div> <!-- end contents -->
