@@ -224,20 +224,20 @@ function sendRef(){
             {
                 var refMsg = new ROSLIB.Message({
                     pos: {
-                        x: refLine[0],
-                        y: refLine[1],
-                        z: refLine[2]
+                        x: parseFloat(refLine[0]),
+                        y: parseFloat(refLine[1]),
+                        z: parseFloat(refLine[2])
                     },
                     vel: {
-                        x: refLine[3],
-                        y: refLine[4],
-                        z: refLine[5]
+                        x: parseFloat(refLine[3]),
+                        y: parseFloat(refLine[4]),
+                        z: parseFloat(refLine[5])
                     },
             
                     acc: {
-                        x: refLine[6],
-                        y: refLine[7],
-                        z: refLine[8]
+                        x: parseFloat(refLine[6]),
+                        y: parseFloat(refLine[7]),
+                        z: parseFloat(refLine[8])
                     }
                 });
                 window['ref_'+table_id].publish(refMsg);
