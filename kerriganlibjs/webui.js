@@ -5,7 +5,7 @@
  */
 var m_console; // console of uav status
 var points_pub;
-var uav_num = 1; //number of drones
+var uav_num = 10; //number of drones
 var google_map; //map instance
 var pathOpacity = 1.0; // path opacity
 var pathWeight = 2; //path width

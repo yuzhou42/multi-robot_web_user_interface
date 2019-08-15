@@ -1,7 +1,7 @@
-<!-- * Created on Thu July 18 2019 
+<!-- * Created on Thu July 18 2019
  * Copyright  2019 - Yu Zhou
  * Email: yu.nico.zhou@gmail.com -->
- 
+
 <!doctype html>
 <html lang="en">
   <style>
@@ -17,8 +17,8 @@
           margin-left: 4%;
           overflow-x: scroll;
           /* overflow-y: visible; */
-          
-      } 
+
+      }
       .sticky-col {
           left: 0;
           position: absolute;
@@ -43,7 +43,7 @@
       .custom-radio .custom-control-label::before {
         background-color: #cccccc;  /* orange */
       }
-      
+
   </style>
   <head>
     <title>Kerrigan UI</title>
@@ -53,13 +53,13 @@
     <!-- Bootstrap CSS -->
     <link href="./bootstrap/bootstrap.min.css"  rel="stylesheet" >
     <script src="./bootstrap/bootstrap.min.js"></script>
-    
+
     <!-- Ros Lib -->
     <script src="./roslibjs/roslib.min.js"></script>
     <script src="./roslibjs/eventemitter2.js"></script>
     <script src="./roslibjs/ros3d.js"></script>
-  
-    
+
+
     <script src="kerriganlibjs/webui.js"></script>
     <script src="kerriganlibjs/subscribers.js"></script>
 <!-- google map -->
@@ -76,7 +76,7 @@
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-    
+
       <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
@@ -97,7 +97,7 @@
                     <span id="server-150"></span> (<span id="roslibjs150-status"> Waiting to Connect... </span>) -->
                 </div>
             </div>
-        </div>  
+        </div>
       </div>
     </nav>
 
@@ -118,21 +118,21 @@
                   <th scope="col">ROS</th>
                   <th scope="col">Img</th>
                   <th scope="col">Status</th>
-                  <th scope="col">x</th>
-                  <th scope="col">y</th>
-                  <th scope="col">z</th>     
-                  <th scope="col">Alt</th>   
-                  <th scope="col">Yaw</th>  
+                  <th scope="col">Lat</th>
+                  <th scope="col">Lon</th>
+                  <th scope="col">z</th>
+                  <th scope="col">Alt</th>
+                  <th scope="col">Yaw</th>
                   <!-- <th scope="col">GPS</th>  -->
-                  <th scope="col">Battery</th>  
+                  <th scope="col">Battery</th>
                   <th scope="col">Console</th>
                 </tr>
               </thead>
               <!-- <tbody style="width:50%; height: width; overflow-y: scroll"> -->
                 <tbody>
                 <tr  class="table" >
-                  <td  class="sticky-col" id="id_1">11</td>
-                  <td id="ip_1"><input type="text" value="192.168.1.108" class="input-sm" style='width:7.5em; text-align: center;' id="1_in" onchange="changeIp(this.value, this.id)"></td>
+                  <td  class="sticky-col" id="id_1">15</td>
+                  <td id="ip_1"><input type="text" value="192.168.1.153" class="input-sm" style='width:7.5em; text-align: center;' id="1_in" onchange="changeIp(this.value, this.id)"></td>
                   <td id="roslibjs_status_1">Waiting...</td>
                   <td id="toggle_img_1">
                       <div class="custom-control custom-radio">
@@ -149,10 +149,10 @@
                   <!-- <td id="gps_1"></td> -->
                   <td id="battery_1"></td>
                   <td id="console_1" ><div id="console_span_1" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
-                  
+
                 </tr>
                 <tr  class="table">
-                  <td  class="sticky-col" id="id_2">1</td>
+                  <td  class="sticky-col" id="id_2">11</td>
                   <td id="ip_2"><input type="text" value="192.168.1.152" class="input-sm" style='width:7.5em; text-align: center;' id="2_in" onchange="changeIp(this.value, this.id)"></td>
                   <td id="roslibjs_status_2">Waiting...</td>
                   <td id="toggle_img_2">
@@ -172,8 +172,8 @@
                   <td id="console_2"><div id="console_span_2" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
                 </tr>
                 <tr  class="table">
-                  <td  class="sticky-col" id="id_3">9</td>
-                  <td id="ip_3"><input type="text" value="192.168.1.150" class="input-sm" style='width:7.5em; text-align: center;' id="3_in" onchange="changeIp(this.value, this.id)"></td>
+                  <td  class="sticky-col" id="id_3">17</td>
+                  <td id="ip_3"><input type="text" value="192.168.1.117" class="input-sm" style='width:7.5em; text-align: center;' id="3_in" onchange="changeIp(this.value, this.id)"></td>
                   <td id="roslibjs_status_3">Waiting...</td>
                   <td id="toggle_img_3">
                       <div class="custom-control custom-radio">
@@ -331,14 +331,14 @@
                   <td id="battery_10"></td>
                   <td id="console_10"><div id="console_span_10" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
                 </tr>
-                
+
               </tbody>
-            </table> 
+            </table>
           </div>
           <!-- <div style="text-align: center; height: 200px; width: 100%; overflow-y: scroll;" id="uav_cosole"></div> -->
         </div>
 
-        <div class="container  col-sm-6 "> 
+        <div class="container  col-sm-6 ">
           <!-- map -->
           <div  id="map">
           </div>
@@ -356,7 +356,7 @@
               <!-- <div class="container  col-sm-2"></div> -->
               <div class="container  col-sm-8">
                   <!-- color:rgb(0,0,128); -->
-                <p id="m_console" style="text-align: left;  font-weight:bold;">Waiting for Mission</p>  
+                <p id="m_console" style="text-align: left;  font-weight:bold;">Waiting for Mission</p>
               </div>
               <div class="custom-control custom-switch col-sm-2">
                 <input type="checkbox" class="custom-control-input" id="swarm_toggle" onclick="triggerSwarm()"  >
@@ -365,11 +365,11 @@
             </div>
             <div class="btn-group bg-light" data-toggle="buttons">
               <button type="button" id="engine0" class="btn btn-outline-warning">Engine0</button>
-              <button type="button" id="takeoff" class="btn btn-outline-success">Takeoff</button> 
+              <button type="button" id="takeoff" class="btn btn-outline-success">Takeoff</button>
               <button type="button" id="mission" class="btn btn-outline-info">Mission</button>
-              <button type="button" id="landing" class="btn btn-outline-primary">Landing</button>  
-            </div>     
-          </div>   
+              <button type="button" id="landing" class="btn btn-outline-primary">Landing</button>
+            </div>
+          </div>
         </div>
         <!-- images -->
         <div class="card  col-sm-6">

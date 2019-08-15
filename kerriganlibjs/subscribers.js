@@ -14,14 +14,14 @@ function subscribeRosout(table_id){
             name : '/rosout_agg',
             messageType : 'rosgraph_msgs/Log'
         });
-        
+
         // subscriber callback
         listener.subscribe(function(msg){
             var CLASS_NAME;
             //http://docs.ros.org/hydro/api/rosgraph_msgs/html/msg/Log.html
             switch(msg.name){
                 case '/ddrone_task_manager':
-                    switch(msg.level){ 
+                    switch(msg.level){
                         case 1: //debug
                             // alert("kidding");
                             CLASS_NAME = "text-primary";
@@ -40,12 +40,12 @@ function subscribeRosout(table_id){
                             CLASS_NAME = "text-danger";
                             break;
                     }
-                    
+
                     var taskManagerConsole = document.getElementById("console_span_"+table_id);
                     taskManagerConsole.className = CLASS_NAME;
                     taskManagerConsole.innerHTML = msg.msg;
                     break;
-                default : 
+                default :
                     // console.log(msg.name + ": " + msg.msg);
                     break;
             }
@@ -60,7 +60,7 @@ function subscribeRosout(table_id){
 }
 
 function subscribeUAVPoseInfo(uav_id, table_id){
-    
+
     var listener = new ROSLIB.Topic({
         ros : window['ros_'+ table_id],
         name : '/mavros/position/local_nwu/sys_id_' + uav_id,
@@ -69,8 +69,8 @@ function subscribeUAVPoseInfo(uav_id, table_id){
     // alert(listener.name);
     listener.subscribe(function(msg){
         // alert(uav_id);
-        document.getElementById("x_"+table_id).innerHTML = msg.pose.position.x.toFixed(2);
-        document.getElementById("y_"+table_id).innerHTML = msg.pose.position.y.toFixed(2);
+        // document.getElementById("x_"+table_id).innerHTML = msg.pose.position.x.toFixed(2);
+        // document.getElementById("y_"+table_id).innerHTML = msg.pose.position.y.toFixed(2);
         document.getElementById("z_"+table_id).innerHTML = msg.pose.position.z.toFixed(2);
         // z_global = msg.pose.position.z.toFixed(2);
         var q = msg.pose.orientation;
@@ -79,12 +79,12 @@ function subscribeUAVPoseInfo(uav_id, table_id){
         // var yaw = Math.atan2(2.0*(q.y*q.z + q.w*q.x), q.w*q.w - q.x*q.x - q.y*q.y + q.z*q.z)/Math.PI*180;
         document.getElementById("heading_"+table_id).innerHTML = yaw.toFixed(0);
         // atan2(2.0*(q.y*q.z + q.w*q.x), q.w*q.w - q.x*q.x - q.y*q.y + q.z*q.z);
-        
+
     });
 }
 
 function subscribeGPS(uav_id, table_id){
-    
+
     var listener = new ROSLIB.Topic({
         ros : window['ros_'+ table_id],
         name : '/mavros/global_position/global/sys_id_'  + uav_id,
@@ -92,11 +92,11 @@ function subscribeGPS(uav_id, table_id){
         messageType : 'sensor_msgs/NavSatFix'
     });
     listener.subscribe(function(msg){
-        // alert(msg.latitude); 
+        // alert(msg.latitude);
         var path = gps_path_1.getPath();;
         var polyLatLng = new google.maps.LatLng(msg.latitude, msg.longitude);
         path.push(polyLatLng);
-        
+
         if(markers[table_id-1])
             markers[table_id-1].setMap(null); // clear marker before adding
         var marker = new google.maps.Marker({
@@ -106,14 +106,14 @@ function subscribeGPS(uav_id, table_id){
         });
         markers[table_id-1] = marker;
         markers[table_id-1].setMap(google_map);
-       
-         
+
+
         // alert(path.getLength());
     });
 }
 
 function subscribeBattery(uav_id, table_id){
-    
+
     var listener = new ROSLIB.Topic({
         ros : window['ros_'+ table_id],
         name : '/mavros/battery/sys_id_'  + uav_id,
@@ -127,7 +127,7 @@ function subscribeBattery(uav_id, table_id){
 }
 
 function subscribeAltitude(uav_id, table_id){
-    
+
     var listener = new ROSLIB.Topic({
         ros : window['ros_'+ table_id],
         name : '/mavros/global_position/global/sys_id_'  + uav_id,
@@ -136,6 +136,8 @@ function subscribeAltitude(uav_id, table_id){
     });
     listener.subscribe(function(msg){
         // alert(table_id);
+        document.getElementById("x_"+table_id).innerHTML = msg.latitude.toFixed(6);
+        document.getElementById("y_"+table_id).innerHTML = msg.longitude.toFixed(6);
         document.getElementById("altitude_"+table_id).innerHTML = msg.altitude.toFixed(2);
     });
 }
