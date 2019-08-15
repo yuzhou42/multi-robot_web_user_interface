@@ -2,7 +2,6 @@
 # overview
 Ｔhis package is for web-based UI shown as the image. It can connect to multiple drones by their IP address and show status of each drone, such as positon, image, healthy status etc. User can sent commands (takeoff, mission, landing) to drone directly from the UI. Moreover, a Google map is inserted to show realtime location of the drone. 
 
-<!-- <img src="kerriganlibjs/kerrigan_ui.png" alt="UI" width="640"/> -->
 ![UI](kerriganlibjs/kerrigan_ui.png)
 **User Interface**
 
@@ -38,18 +37,6 @@ After the development stage, you will have to deploy the web page, thus it can b
     $ sudo apt-get update
     $ sudo apt-get install nginx
     ```
-  - MySQL
-    ```
-    $ sudo apt-get install mysql-server
-    ```
-  - PHP
-    ```
-    $ sudo apt-get install php php-mcrypt php-mysql
-    ```
-  - nodejs
-    ```
-    $ sudo apt-get install nodejs
-    ```
 - Setup
   - Make sure the www-data user can access the FULL path of the website folder!!! 
     ```
@@ -61,7 +48,7 @@ After the development stage, you will have to deploy the web page, thus it can b
     find line:
     $ root /var/www/html;
     and change value /var/www/html to the path to your app.
-    root /media/nvidia/SD/catkin_ws/src/ddrone_v2/ddrone_ui/index.html;
+    root /media/nvidia/SD/catkin_ws/src/ddrone_v2/ddrone_ui;
     ```
   - Restart Nginx:
     ```
@@ -73,12 +60,12 @@ After the development stage, you will have to deploy the web page, thus it can b
 - web_video_server
     ```
     $ sudo apt-get install ros-kinetic-web-video-server
-        It launches the server for streaming ROS image messages as video through the web.
+      It launches the server for streaming ROS image messages as video through the web.
     ```
 -  rosbridge_server
     ```
     $ sudo apt-get install ros-kinetic-rosbridge-suite
-    It launches the web sockets to allow web apps to publish or subscribe ROS messages.
+      It launches the web sockets to allow web apps to publish or subscribe ROS messages.
     ``` 
 - tf2-web-republisher
    ```
