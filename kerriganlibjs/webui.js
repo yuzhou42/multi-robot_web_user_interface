@@ -134,7 +134,7 @@ function initRefPublisher(uav_id, table_id) {
     // Init topic object
     window['ref_'+table_id] = new ROSLIB.Topic({
         ros : window['ros_'+ table_id],
-        name : '/rt_ref_gen/current_state_'+ uav_id,
+        name : '/rt_ref_gen/old_current_state_'+ uav_id,
         messageType : 'common_msgs/state'
     });
     // Register publisher within ROS system
