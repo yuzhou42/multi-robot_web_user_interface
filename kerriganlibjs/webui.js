@@ -172,7 +172,7 @@ function taskManeger(){
     }
 
     document.getElementById("mission").onclick = function(){
-        sendRefTimer = setInterval(sendRef, 20);
+        // sendRefTimer = setInterval(sendRef, 20);
         m_console.innerHTML = "Mission Start";
         var msg = new ROSLIB.Message({data : 2});
         for (var table_id=1; table_id<=uav_num; table_id++){
