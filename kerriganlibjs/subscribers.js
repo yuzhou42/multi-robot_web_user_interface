@@ -93,7 +93,7 @@ function subscribeGPS(uav_id, table_id){
     });
     listener.subscribe(function(msg){
         // alert(msg.latitude);
-        var path = gps_path_1.getPath();;
+        var path =  window["gps_path_"+table_id].getPath();
         var polyLatLng = new google.maps.LatLng(msg.latitude, msg.longitude);
         path.push(polyLatLng);
 

@@ -11,7 +11,7 @@ var pathOpacity = 1.0; // path opacity
 var pathWeight = 2; //path width
 var pathColor = ["#ffff00","#ff0000","#ff8000",  "#80ff00", "#00ff80",
 "#00ffff", "#0000ff", "	#8000ff", "	#ff00bf", "	#ff0040"]; //path color
-var markers = []; //Google map markers 
+var markers = []; //Google map markers
 var img_IP;
 
 // mission from ui
@@ -75,18 +75,18 @@ function rosConnection(table_id,table_cell, uav_ip) {
 function changeIp(ip, id) {
     var id_s2i = parseInt(id,10);
     // alert("I'm in"+id_s2i);
-    rosConnection(window['ros_'+ id_s2i], document.getElementById("roslibjs_status_"+id_s2i), ip); 
+    rosConnection(window['ros_'+ id_s2i], document.getElementById("roslibjs_status_"+id_s2i), ip);
   }
 
 function triggerSwarm(){
-    if (document.getElementById('swarm_toggle').checked) 
+    if (document.getElementById('swarm_toggle').checked)
     {
         // alert("Checked")
         document.getElementById("mission").disabled = true;
-    } 
+    }
     else
         document.getElementById("mission").disabled = false;
-}  
+}
 function initVelocityPublisher() {
     // Init message with zero values.
     twist = new ROSLIB.Message({
@@ -171,7 +171,7 @@ function taskManeger(){
 }
 
 function initMap() {
-   
+
     google_map = new google.maps.Map(document.getElementById('map'), {
         zoom: 17,
         center: {lat: 1.32854998112, lng: 103.786003113}, //holland road
@@ -181,26 +181,26 @@ function initMap() {
       });
 
     for (var table_id=1; table_id<=uav_num; table_id++){
-        window['gps_path_'+table_id] = new google.maps.Polyline({
+        window["gps_path_"+table_id] = new google.maps.Polyline({
             strokeColor: pathColor[table_id-1],
             strokeOpacity: pathOpacity,
             strokeWeight: pathWeight
           });
-        window['gps_path_'+table_id].setMap(google_map);
+        window["gps_path_"+table_id].setMap(google_map);
     }
   }
 
-window.onload = function () {   
+window.onload = function () {
     // robot_IP = location.hostname;
     // Init handle for rosbridge_websocket
-   
+
     for (var table_id=1; table_id<=uav_num; table_id++){
         var uav_ip =  document.getElementById(table_id+"_in").value;
         var uav_id = document.getElementById("id_"+table_id).textContent;
-          
+
         rosConnection(table_id,document.getElementById("roslibjs_status_"+table_id),uav_ip);
         subscribeUAVPoseInfo(uav_id , table_id);
-        initMissionPublisher(uav_id, table_id);  
+        initMissionPublisher(uav_id, table_id);
         subscribeGPS(uav_id, table_id);
         subscribeAltitude(uav_id, table_id);
         subscribeBattery(uav_id, table_id);
@@ -210,7 +210,7 @@ window.onload = function () {
     }
     viewImage(img_IP);
     m_console = document.getElementById("m_console");
-    taskManeger();  // send command 
+    taskManeger();  // send command
 }
 
     // Document.getElementById("wp_send").onclick = function(){
@@ -222,7 +222,7 @@ window.onload = function () {
     //     // // points_pub.advertise();
     //     // var msg = new ROSLIB.Message({data : 3});
     //     // points_pub.publish(msg);
-    
+
     // }
 
 // trigger a service
