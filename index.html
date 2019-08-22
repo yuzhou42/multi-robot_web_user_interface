@@ -426,42 +426,21 @@
       <!-- row 3: Mission   -->
       <div class="row">
         <!-- mission -->
-        <div class="card  text-white bg-dark  border-light col-sm-12">
-            <h4 style="text-align: center;" id="m_console" class="card-header">Mission Control</h3>
+        <div class="card  text-white    border-light col-sm-12">
+            <h4 style="text-align: center;" id="m_console" class="card-header bg-dark">Mission Control</h3>
             <div style="text-align: center;" class="card-body">
-              <!-- <div class="row">
-                <div class="container  col-sm-8">
-                  <p id="m_console" style="text-align: left;  font-weight:bold;">Waiting for Mission</p>
-                </div>
-                <div class="custom-control custom-switch col-sm-2">
-                  <input type="checkbox" class="custom-control-input" id="swarm_toggle" onclick="triggerSwarm()"  >
-                  <label class="custom-control-label" for="swarm_toggle">Swarm</label>
-                </div>
-              </div> -->
             <div class="row">
-              <div class=" col-sm-1"></div>
-              <div class=" col-sm-3">
-                
-                <!-- <p></p>
-                <div class="custom-control custom-checkbox " >            
-                    <input type="checkbox" class="custom-control-input" id="uav_control_center" checked="">
-                    <label class="custom-control-label" for="uav_control_center">Selected All UAV</label>
-                </div> -->
-                <div class="btn-group bg-light  " data-toggle="buttons">
-                    <button type="button" id="select_all_btn" class="btn btn-outline-info" onclick="selectAllUAV()">Select All</button>
-                    <button type="button" id="clear_all_btn" class="btn btn-outline-success" onclick="clearAllUAV()" >Clear All</button> 
-                  </div>
+              <div class=" col-sm-4">
+                <button type="button" id="select_all_btn" class="btn btn-outline-info" onclick="selectAllUAV()">Select All</button>
+                <button type="button" id="clear_all_btn" class="btn btn-outline-success" onclick="clearAllUAV()" >Clear All</button> 
               </div>
-              <div class=" col-sm-7">
-                
-                <div class="btn-group bg-light  " data-toggle="buttons">
+              <div class=" col-sm-8">
                   <button type="button" id="engine0" class="btn btn-outline-primary">Engine0</button>
                   <button type="button" id="takeoff" class="btn btn-outline-primary">Takeoff</button> 
-                  <button type="button" id="swarm" class="btn btn-outline-primary">Swarm</button>
                   <button type="button" id="mission" class="btn btn-outline-primary">Mission</button>
+                  <button type="button" id="swarm" class="btn btn-outline-primary">Swarm</button>
                   <button type="button" id="hover" class="btn btn-outline-primary">Hover</button>
                   <button type="button" id="land" class="btn btn-outline-primary">    Land </button>
-                </div>
                 <p></p>
                 <p class="text-danger">Please make sure you have selected the right UAVs  before sending any commands!</p>
               </div>
