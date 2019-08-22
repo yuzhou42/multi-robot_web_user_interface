@@ -136,36 +136,79 @@ function changeImg(id){
     img_IP =  document.getElementById(id_s2i+"_in").value;
     viewImage(img_IP);
 }
+
+function selectAllUAV( ){
+    var checkboxes = document.getElementsByName('uav_checkbox');
+    for(var i=0, n=checkboxes.length;i<n;i++) {
+        checkboxes[i].checked =  true;
+    }
+}
+
+function clearAllUAV( ){
+    var checkboxes = document.getElementsByName('uav_checkbox');
+    for(var i=0, n=checkboxes.length;i<n;i++) {
+        checkboxes[i].checked = false;
+    }
+}
+
 function taskManeger(){
     document.getElementById("engine0").onclick = function(){
-        m_console.innerHTML = "Clear previous UAV reference";
+        m_console.innerHTML = "Engine0 command sent";
         var msg = new ROSLIB.Message({data : 0});
         for (var table_id=1; table_id<=uav_num; table_id++){
-            window['mission_pub_'+table_id].publish(msg);
+            if(document.getElementById(table_id + '_selected').checked){ 
+                window['mission_pub_'+table_id].publish(msg);
+            }   
         }
     }
 
     document.getElementById("takeoff").onclick = function(){
-        m_console.innerHTML = "Taking off";
+        m_console.innerHTML = "Takeoff command sent";
         var msg = new ROSLIB.Message({data : 1});
         for (var table_id=1; table_id<=uav_num; table_id++){
-            window['mission_pub_'+table_id].publish(msg);
+            if(document.getElementById(table_id + '_selected').checked){
+                window['mission_pub_'+table_id].publish(msg);
+            }
         }
     }
 
     document.getElementById("mission").onclick = function(){
-        m_console.innerHTML = "Mission Start";
+        m_console.innerHTML = "Mission command sent";
         var msg = new ROSLIB.Message({data : 2});
         for (var table_id=1; table_id<=uav_num; table_id++){
-            window['mission_pub_'+table_id].publish(msg);
+            if(document.getElementById(table_id + '_selected').checked){
+                window['mission_pub_'+table_id].publish(msg);
+            }
         }
     }
 
-    document.getElementById("landing").onclick = function(){
-        m_console.innerHTML = "Landing";
+    document.getElementById("swarm").onclick = function(){
+        m_console.innerHTML = "swarm command sent";
         var msg = new ROSLIB.Message({data : 3});
         for (var table_id=1; table_id<=uav_num; table_id++){
-            window['mission_pub_'+table_id].publish(msg);
+            if(document.getElementById(table_id + '_selected').checked){
+                window['mission_pub_'+table_id].publish(msg);
+            }
+        }
+    }
+
+    document.getElementById("hover").onclick = function(){
+        m_console.innerHTML = "Hover command sent";
+        var msg = new ROSLIB.Message({data : 4});
+        for (var table_id=1; table_id<=uav_num; table_id++){
+            if(document.getElementById(table_id + '_selected').checked){
+                window['mission_pub_'+table_id].publish(msg);
+            }
+        }
+    }
+
+    document.getElementById("land").onclick = function(){
+        m_console.innerHTML = "Land command sent";
+        var msg = new ROSLIB.Message({data : 5});
+        for (var table_id=1; table_id<=uav_num; table_id++){
+            if(document.getElementById(table_id + '_selected').checked){
+                window['mission_pub_'+table_id].publish(msg);
+            }
         }
     }
 }
@@ -206,9 +249,13 @@ window.onload = function () {
         subscribeBattery(uav_id, table_id);
         subscribeRosout(table_id);
         if(document.getElementById(table_id+"_img").checked)
+        {
             img_IP = uav_ip;
+            viewImage(img_IP);
+        }
+            
     }
-    viewImage(img_IP);
+    
     m_console = document.getElementById("m_console");
     taskManeger();  // send command
 }

@@ -25,6 +25,7 @@
           top: auto;
           text-align: center;
           width: 6%;
+          color:black
       }
       #map {
         height: 100%;
@@ -41,7 +42,11 @@
 
       /* image ratio toggle color */
       .custom-radio .custom-control-label::before {
-        background-color: #cccccc;  /* orange */
+        background-color: #cccccc;   
+      }
+
+      .custom-checkbox .custom-control-label::before {
+        background-color: #cccccc;   
       }
 
   </style>
@@ -105,278 +110,365 @@
     <div class="container-fluid">
         <h1>Place Hold</h1>
         <h1>Place Hold</h1>
-    <!-- row 1: UAV status and map-->
+    <!-- row 1:  map and images -->
       <div class="row">
-        <div class="container  col-sm-6 ">
-          <!-- uav status table with scroller in x direction-->
-          <div class="uav_scroller">
-            <table style="text-align: center; vertical-align:middle; table-layout: auto;   "  cellspacing="0" cellpadding="0" class="table table-striped  ">
-              <thead>
-                <tr>
-                  <th class="sticky-col" scope="col">ID</th>
-                  <th scope="col">IP</th>
-                  <th scope="col">ROS</th>
-                  <th scope="col">Img</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Lat</th>
-                  <th scope="col">Lon</th>
-                  <th scope="col">z</th>
-                  <th scope="col">Alt</th>
-                  <th scope="col">Yaw</th>
-                  <!-- <th scope="col">GPS</th>  -->
-                  <th scope="col">Battery</th>
-                  <th scope="col">Console</th>
-                </tr>
-              </thead>
-              <!-- <tbody style="width:50%; height: width; overflow-y: scroll"> -->
-                <tbody>
-                <tr  class="table" >
-                  <td  class="sticky-col" id="id_1">11</td>
-                  <td id="ip_1"><input type="text" value="192.168.1.152" class="input-sm" style='width:7.5em; text-align: center;' id="1_in" onchange="changeIp(this.value, this.id)"></td>
-                  <td id="roslibjs_status_1">Waiting...</td>
-                  <td id="toggle_img_1">
-                      <div class="custom-control custom-radio">
-                          <input type="radio" id="1_img" name="customRadio" class="custom-control-input" checked="" onclick="changeImg(this.id)">
-                          <label class="custom-control-label" for="1_img"></label>
-                      </div>
-                  </td>
-                  <td id="uav_status_1"></td>
-                  <td id="x_1"></td>
-                  <td id="y_1"></td>
-                  <td id="z_1"></td>
-                  <td id="altitude_1"></td>
-                  <td id="heading_1"></td>
-                  <!-- <td id="gps_1"></td> -->
-                  <td id="battery_1"></td>
-                  <td id="console_1" ><div id="console_span_1" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
 
-                </tr>
-                <tr  class="table">
-                  <td  class="sticky-col" id="id_2">15</td>
-                  <td id="ip_2"><input type="text" value="192.168.1.153" class="input-sm" style='width:7.5em; text-align: center;' id="2_in" onchange="changeIp(this.value, this.id)"></td>
-                  <td id="roslibjs_status_2">Waiting...</td>
-                  <td id="toggle_img_2">
-                      <div class="custom-control custom-radio">
-                          <input type="radio" id="2_img" name="customRadio" class="custom-control-input" onclick="changeImg(this.id)">
-                          <label class="custom-control-label" for="2_img"></label>
-                      </div>
-                  </td>
-                  <td id="uav_status_2"></td>
-                  <td id="x_2"></td>
-                  <td id="y_2"></td>
-                  <td id="z_2"></td>
-                  <td id="altitude_2"></td>
-                  <td id="heading_2"></td>
-                  <!-- <td id="gps_2"></td> -->
-                  <td id="battery_2"></td>
-                  <td id="console_2"><div id="console_span_2" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
-                </tr>
-                <tr  class="table">
-                  <td  class="sticky-col" id="id_3">17</td>
-                  <td id="ip_3"><input type="text" value="192.168.1.117" class="input-sm" style='width:7.5em; text-align: center;' id="3_in" onchange="changeIp(this.value, this.id)"></td>
-                  <td id="roslibjs_status_3">Waiting...</td>
-                  <td id="toggle_img_3">
-                      <div class="custom-control custom-radio">
-                          <input type="radio" id="3_img" name="customRadio" class="custom-control-input" onclick="changeImg(this.id)" >
-                          <label class="custom-control-label" for="3_img"></label>
-                      </div>
-                  </td>
-                  <td id="uav_status_3"></td>
-                  <td id="x_3"></td>
-                  <td id="y_3"></td>
-                  <td id="z_3"></td>
-                  <td id="altitude_3"></td>
-                  <td id="heading_3"></td>
-                  <!-- <td id="gps_3"></td> -->
-                  <td id="battery_3"></td>
-                  <td id="console_3"><div id="console_span_3" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
-                </tr>
-                <tr  class="table">
-                  <td  class="sticky-col" id="id_4">20</td>
-                  <td id="ip_4"><input type="text" value="192.168.1.120" class="input-sm" style='width:7.5em; text-align: center;' id="4_in" onchange="changeIp(this.value, this.id)"></td>
-                  <td id="roslibjs_status_4">Waiting...</td>
-                  <td id="toggle_img_4">
-                      <div class="custom-control custom-radio">
-                          <input type="radio" id="4_img" name="customRadio" class="custom-control-input" onclick="changeImg(this.id)">
-                          <label class="custom-control-label" for="4_img"></label>
-                      </div>
-                  </td>
-                  <td id="uav_status_4"></td>
-                  <td id="x_4"></td>
-                  <td id="y_4"></td>
-                  <td id="z_4"></td>
-                  <td id="altitude_4"></td>
-                  <td id="heading_4"></td>
-                  <!-- <td id="gps_4"></td> -->
-                  <td id="battery_4"></td>
-                  <td id="console_4"><div id="console_span_4" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
-                </tr>
-                <tr  class="table">
-                  <td  class="sticky-col" id="id_5">18</td>
-                  <td id="ip_5"><input type="text" value="192.168.1.149" class="input-sm" style='width:7.5em; text-align: center;' id="5_in" onchange="changeIp(this.value, this.id)"></td>
-                  <td id="roslibjs_status_5">Waiting...</td>
-                  <td id="toggle_img_5">
-                      <div class="custom-control custom-radio">
-                          <input type="radio" id="5_img" name="customRadio" class="custom-control-input"  onclick="changeImg(this.id)">
-                          <label class="custom-control-label" for="5_img"></label>
-                      </div>
-                  </td>
-                  <td id="uav_status_5"></td>
-                  <td id="x_5"></td>
-                  <td id="y_5"></td>
-                  <td id="z_5"></td>
-                  <td id="altitude_5"></td>
-                  <td id="heading_5"></td>
-                  <!-- <td id="gps_5"></td> -->
-                  <td id="battery_5"></td>
-                  <td id="console_5"><div id="console_span_5" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
-                </tr>
-                <tr  class="table">
-                  <td  class="sticky-col" id="id_6">6</td>
-                  <td id="ip_6"><input type="text" value="127.0.0.1" class="input-sm" style='width:7.5em; text-align: center;' id="6_in" onchange="changeIp(this.value, this.id)"></td>
-                  <td id="roslibjs_status_6">Waiting...</td>
-                  <td id="toggle_img_6">
-                      <div class="custom-control custom-radio">
-                          <input type="radio" id="6_img" name="customRadio" class="custom-control-input"  onclick="changeImg(this.id)">
-                          <label class="custom-control-label" for="6_img"></label>
-                      </div>
-                  </td>
-                  <td id="uav_status_6"></td>
-                  <td id="x_6"></td>
-                  <td id="y_6"></td>
-                  <td id="z_6"></td>
-                  <td id="altitude_6"></td>
-                  <td id="heading_6"></td>
-                  <!-- <td id="gps_6"></td> -->
-                  <td id="battery_6"></td>
-                  <td id="console_6"><div id="console_span_6" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
-                </tr>
-                <tr  class="table">
-                  <td class="sticky-col"  id="id_7">7</td>
-                  <td id="ip_7"><input type="text" value="127.0.0.1" class="input-sm" style='width:7.5em; text-align: center;' id="7_in" onchange="changeIp(this.value, this.id)"></td>
-                  <td id="roslibjs_status_7">Waiting...</td>
-                  <td id="toggle_img_7">
-                      <div class="custom-control custom-radio">
-                          <input type="radio" id="7_img" name="customRadio" class="custom-control-input"  onclick="changeImg(this.id)">
-                          <label class="custom-control-label" for="7_img"></label>
-                      </div>
-                  </td>
-                  <td id="uav_status_7"></td>
-                  <td id="x_7"></td>
-                  <td id="y_7"></td>
-                  <td id="z_7"></td>
-                  <td id="altitude_7"></td>
-                  <td id="heading_7"></td>
-                  <!-- <td id="gps_7"></td> -->
-                  <td id="battery_7"></td>
-                  <td id="console_7"><div id="console_span_7" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
-                </tr>
-                <tr  class="table">
-                  <td  class="sticky-col" id="id_8">8</td>
-                  <td id="ip_8"><input type="text" value="127.0.0.1" class="input-sm" style='width:7.5em; text-align: center;' id="8_in" onchange="changeIp(this.value, this.id)"></td>
-                  <td id="roslibjs_status_8">Waiting...</td>
-                  <td id="toggle_img_8">
-                      <div class="custom-control custom-radio">
-                          <input type="radio" id="8_img" name="customRadio" class="custom-control-input"  onclick="changeImg(this.id)">
-                          <label class="custom-control-label" for="8_img"></label>
-                      </div>
-                  </td>
-                  <td id="uav_status_8"></td>
-                  <td id="x_8"></td>
-                  <td id="y_8"></td>
-                  <td id="z_8"></td>
-                  <td id="altitude_8"></td>
-                  <td id="heading_8"></td>
-                  <!-- <td id="gps_8"></td> -->
-                  <td id="battery_8"></td>
-                  <td id="console_8"><div id="console_span_8" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
-                </tr>
-                <tr  class="table">
-                  <td  class="sticky-col" id="id_9">2</td>
-                  <td id="ip_9"><input type="text" value="127.0.0.1" class="input-sm" style='width:7.5em; text-align: center;' id="9_in" onchange="changeIp(this.value, this.id)"></td>
-                  <td id="roslibjs_status_9">Waiting...</td>
-                  <td id="toggle_img_9">
-                      <div class="custom-control custom-radio">
-                          <input type="radio" id="9_img" name="customRadio" class="custom-control-input"  onclick="changeImg(this.id)">
-                          <label class="custom-control-label" for="9_img"></label>
-                      </div>
-                  </td>
-                  <td id="uav_status_9"></td>
-                  <td id="x_9"></td>
-                  <td id="y_9"></td>
-                  <td id="z_9"></td>
-                  <td id="altitude_9"></td>
-                  <td id="heading_9"></td>
-                  <!-- <td id="gps_9"></td> -->
-                  <td id="battery_9"></td>
-                  <td id="console_9"><div id="console_span_9" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
-                </tr>
-                <tr  class="table">
-                  <td  class="sticky-col" id="id_10">10</td>
-                  <td id="ip_10"><input type="text" value="127.0.0.1" class="input-sm" style='width:7.5em; text-align: center;' id="10_in" onchange="changeIp(this.value, this.id)"></td>
-                  <td id="roslibjs_status_10">Waiting...</td>
-                  <td id="toggle_img_10">
-                      <div class="custom-control custom-radio">
-                          <input type="radio" id="10_img" name="customRadio" class="custom-control-input"  onclick="changeImg(this.id)">
-                          <label class="custom-control-label" for="10_img"></label>
-                      </div>
-                  </td>
-                  <td id="uav_status_10"></td>
-                  <td id="x_10"></td>
-                  <td id="y_10"></td>
-                  <td id="z_10"></td>
-                  <td id="altitude_10"></td>
-                  <td id="heading_10"></td>
-                  <!-- <td id="gps_10"></td> -->
-                  <td id="battery_10"></td>
-                  <td id="console_10"><div id="console_span_10" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
-                </tr>
-
-              </tbody>
-            </table>
-          </div>
-          <!-- <div style="text-align: center; height: 200px; width: 100%; overflow-y: scroll;" id="uav_cosole"></div> -->
-        </div>
-
-        <div class="container  col-sm-6 ">
-          <!-- map -->
+        <!-- map -->
+        <div class="container  col-sm-8 ">
           <div  id="map">
           </div>
         </div>
+        <!-- images -->
+        <div class="card  col-sm-4">
+            <!-- <h3 style="text-align: center;" class="card-header">ZED</h3> -->
+          <object style="height: 400px; width: 100%;" data="kerriganlibjs/tracking.jpg" type="image/jpg">
+            <img id="zed_image"  src="" alt="Target Tracking">
+          </object>
+        </div>
       </div> <!-- first row -->
 
+      <!-- <p></p> -->
+      <!-- row 2: UAV status   -->
+      <div class="row">
+        <div class="container   col-sm-12 ">
+            <!-- uav status table with scroller in x direction-->
+            <div class="uav_scroller " >
+              <table style="text-align: center; color: black; vertical-align:middle; table-layout: auto;   "  cellspacing="0" cellpadding="0" class="table table-striped  ">
+                <thead>
+                  <tr  >
+                    <th class="sticky-col" scope="col">ID</th>
+                    <th scope="col">IP</th>
+                    <th scope="col">ROS</th>
+                    <th scope="col">UAV</th>
+                    <th scope="col">Img</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Lat</th>
+                    <th scope="col">Lon</th>
+                    <th scope="col">z</th>
+                    <th scope="col">Alt</th>
+                    <th scope="col">Yaw</th>
+                    <!-- <th scope="col">GPS</th>  -->
+                    <th scope="col">Error</th>
+                    <th scope="col">Console</th>
+                  </tr>
+                </thead>
+                <!-- <tbody style="width:50%; height: width; overflow-y: scroll"> -->
+                  <tbody>
+                  <tr  class="table" >
+                    <td  class="sticky-col" id="id_1">11</td>
+                    <td id="ip_1"><input type="text" value="192.168.1.152" class="input-sm" style='width:7.5em; text-align: center;' id="1_in" onchange="changeIp(this.value, this.id)"></td>
+                    <td id="roslibjs_status_1">Waiting...</td>
+                    <td id="checkbox_1">
+                      <div class="custom-control custom-checkbox" >
+                        <input type="checkbox" name="uav_checkbox" class="custom-control-input"  id="1_selected" checked="">
+                        <label class="custom-control-label" for="1_selected"></label>
+                      </div>
+                    </td>
+                    <td id="toggle_img_1">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="1_img" name="customRadio" class="custom-control-input" checked="" onclick="changeImg(this.id)">
+                            <label class="custom-control-label" for="1_img"></label>
+                        </div>
+                    </td>
+                    <td id="uav_status_1"></td>
+                    <td id="x_1"></td>
+                    <td id="y_1"></td>
+                    <td id="z_1"></td>
+                    <td id="altitude_1"></td>
+                    <td id="heading_1"></td>
+                    <!-- <td id="gps_1"></td> -->
+                    <td id="battery_1"></td>
+                    <td id="console_1" ><div id="console_span_1" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
+  
+                  </tr>
+                  <tr  class="table">
+                    <td  class="sticky-col" id="id_2">15</td>
+                    <td id="ip_2"><input type="text" value="192.168.1.153" class="input-sm" style='width:7.5em; text-align: center;' id="2_in" onchange="changeIp(this.value, this.id)"></td>
+                    <td id="roslibjs_status_2">Waiting...</td>
+                    <td id="checkbox_2">
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" name="uav_checkbox" class="custom-control-input" id="2_selected" checked="">
+                          <label class="custom-control-label" for="2_selected"></label>
+                        </div>
+                    </td>
+                    <td id="toggle_img_2">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="2_img" name="customRadio" class="custom-control-input" onclick="changeImg(this.id)">
+                            <label class="custom-control-label" for="2_img"></label>
+                        </div>
+                    </td>
+                    <td id="uav_status_2"></td>
+                    <td id="x_2"></td>
+                    <td id="y_2"></td>
+                    <td id="z_2"></td>
+                    <td id="altitude_2"></td>
+                    <td id="heading_2"></td>
+                    <!-- <td id="gps_2"></td> -->
+                    <td id="battery_2"></td>
+                    <td id="console_2"><div id="console_span_2" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
+                  </tr>
+                  <tr  class="table">
+                    <td  class="sticky-col" id="id_3">17</td>
+                    <td id="ip_3"><input type="text" value="192.168.1.117" class="input-sm" style='width:7.5em; text-align: center;' id="3_in" onchange="changeIp(this.value, this.id)"></td>
+                    <td id="roslibjs_status_3">Waiting...</td>
+                    <td id="checkbox_3">
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" name="uav_checkbox"  class="custom-control-input" id="3_selected" checked="">
+                          <label class="custom-control-label" for="3_selected"></label>
+                        </div>
+                    </td>
+                    <td id="toggle_img_3">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="3_img" name="customRadio" class="custom-control-input" onclick="changeImg(this.id)" >
+                            <label class="custom-control-label" for="3_img"></label>
+                        </div>
+                    </td>
+                    <td id="uav_status_3"></td>
+                    <td id="x_3"></td>
+                    <td id="y_3"></td>
+                    <td id="z_3"></td>
+                    <td id="altitude_3"></td>
+                    <td id="heading_3"></td>
+                    <!-- <td id="gps_3"></td> -->
+                    <td id="battery_3"></td>
+                    <td id="console_3"><div id="console_span_3" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
+                  </tr>
+                  <tr  class="table">
+                    <td  class="sticky-col" id="id_4">20</td>
+                    <td id="ip_4"><input type="text" value="192.168.1.120" class="input-sm" style='width:7.5em; text-align: center;' id="4_in" onchange="changeIp(this.value, this.id)"></td>
+                    <td id="roslibjs_status_4">Waiting...</td>
+                    <td id="checkbox_4">
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" name="uav_checkbox"  class="custom-control-input" id="4_selected" checked="">
+                          <label class="custom-control-label" for="4_selected"></label>
+                        </div>
+                    </td>
+                    <td id="toggle_img_4">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="4_img" name="customRadio" class="custom-control-input" onclick="changeImg(this.id)">
+                            <label class="custom-control-label" for="4_img"></label>
+                        </div>
+                    </td>
+                    <td id="uav_status_4"></td>
+                    <td id="x_4"></td>
+                    <td id="y_4"></td>
+                    <td id="z_4"></td>
+                    <td id="altitude_4"></td>
+                    <td id="heading_4"></td>
+                    <!-- <td id="gps_4"></td> -->
+                    <td id="battery_4"></td>
+                    <td id="console_4"><div id="console_span_4" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
+                  </tr>
+                  <tr  class="table">
+                    <td  class="sticky-col" id="id_5">18</td>
+                    <td id="ip_5"><input type="text" value="192.168.1.149" class="input-sm" style='width:7.5em; text-align: center;' id="5_in" onchange="changeIp(this.value, this.id)"></td>
+                    <td id="roslibjs_status_5">Waiting...</td>
+                    <td id="checkbox_5">
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" name="uav_checkbox"  class="custom-control-input" id="5_selected" checked="">
+                          <label class="custom-control-label" for="5_selected"></label>
+                        </div>
+                    </td>
+                    <td id="toggle_img_5">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="5_img" name="customRadio" class="custom-control-input"  onclick="changeImg(this.id)">
+                            <label class="custom-control-label" for="5_img"></label>
+                        </div>
+                    </td>
+                    <td id="uav_status_5"></td>
+                    <td id="x_5"></td>
+                    <td id="y_5"></td>
+                    <td id="z_5"></td>
+                    <td id="altitude_5"></td>
+                    <td id="heading_5"></td>
+                    <!-- <td id="gps_5"></td> -->
+                    <td id="battery_5"></td>
+                    <td id="console_5"><div id="console_span_5" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
+                  </tr>
+                  <tr  class="table">
+                    <td  class="sticky-col" id="id_6">6</td>
+                    <td id="ip_6"><input type="text" value="127.0.0.1" class="input-sm" style='width:7.5em; text-align: center;' id="6_in" onchange="changeIp(this.value, this.id)"></td>
+                    <td id="roslibjs_status_6">Waiting...</td>
+                    <td id="checkbox_6">
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" name="uav_checkbox"  class="custom-control-input" id="6_selected" checked="">
+                          <label class="custom-control-label" for="6_selected"></label>
+                        </div>
+                    </td>
+                    <td id="toggle_img_6">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="6_img" name="customRadio" class="custom-control-input"  onclick="changeImg(this.id)">
+                            <label class="custom-control-label" for="6_img"></label>
+                        </div>
+                    </td>
+                    <td id="uav_status_6"></td>
+                    <td id="x_6"></td>
+                    <td id="y_6"></td>
+                    <td id="z_6"></td>
+                    <td id="altitude_6"></td>
+                    <td id="heading_6"></td>
+                    <!-- <td id="gps_6"></td> -->
+                    <td id="battery_6"></td>
+                    <td id="console_6"><div id="console_span_6" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
+                  </tr>
+                  <tr  class="table">
+                    <td class="sticky-col"  id="id_7">7</td>
+                    <td id="ip_7"><input type="text" value="127.0.0.1" class="input-sm" style='width:7.5em; text-align: center;' id="7_in" onchange="changeIp(this.value, this.id)"></td>
+                    <td id="roslibjs_status_7">Waiting...</td>
+                    <td id="checkbox_7">
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" name="uav_checkbox"  class="custom-control-input" id="7_selected" checked="">
+                          <label class="custom-control-label" for="7_selected"></label>
+                        </div>
+                    </td>
+                    <td id="toggle_img_7">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="7_img" name="customRadio" class="custom-control-input"  onclick="changeImg(this.id)">
+                            <label class="custom-control-label" for="7_img"></label>
+                        </div>
+                    </td>
+                    <td id="uav_status_7"></td>
+                    <td id="x_7"></td>
+                    <td id="y_7"></td>
+                    <td id="z_7"></td>
+                    <td id="altitude_7"></td>
+                    <td id="heading_7"></td>
+                    <!-- <td id="gps_7"></td> -->
+                    <td id="battery_7"></td>
+                    <td id="console_7"><div id="console_span_7" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
+                  </tr>
+                  <tr  class="table">
+                    <td  class="sticky-col" id="id_8">8</td>
+                    <td id="ip_8"><input type="text" value="127.0.0.1" class="input-sm" style='width:7.5em; text-align: center;' id="8_in" onchange="changeIp(this.value, this.id)"></td>
+                    <td id="roslibjs_status_8">Waiting...</td>
+                    <td id="checkbox_8">
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" name="uav_checkbox"  class="custom-control-input" id="8_selected" checked="">
+                          <label class="custom-control-label" for="8_selected"></label>
+                        </div>
+                    </td>
+                    <td id="toggle_img_8">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="8_img" name="customRadio" class="custom-control-input"  onclick="changeImg(this.id)">
+                            <label class="custom-control-label" for="8_img"></label>
+                        </div>
+                    </td>
+                    <td id="uav_status_8"></td>
+                    <td id="x_8"></td>
+                    <td id="y_8"></td>
+                    <td id="z_8"></td>
+                    <td id="altitude_8"></td>
+                    <td id="heading_8"></td>
+                    <!-- <td id="gps_8"></td> -->
+                    <td id="battery_8"></td>
+                    <td id="console_8"><div id="console_span_8" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
+                  </tr>
+                  <tr  class="table">
+                    <td  class="sticky-col" id="id_9">2</td>
+                    <td id="ip_9"><input type="text" value="127.0.0.1" class="input-sm" style='width:7.5em; text-align: center;' id="9_in" onchange="changeIp(this.value, this.id)"></td>
+                    <td id="roslibjs_status_9">Waiting...</td>
+                    <td id="checkbox_9">
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" name="uav_checkbox"  class="custom-control-input" id="9_selected" checked="">
+                          <label class="custom-control-label" for="9_selected"></label>
+                        </div>
+                      </td>
+                    <td id="toggle_img_9">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="9_img" name="customRadio" class="custom-control-input"  onclick="changeImg(this.id)">
+                            <label class="custom-control-label" for="9_img"></label>
+                        </div>
+                    </td>
+                    <td id="uav_status_9"></td>
+                    <td id="x_9"></td>
+                    <td id="y_9"></td>
+                    <td id="z_9"></td>
+                    <td id="altitude_9"></td>
+                    <td id="heading_9"></td>
+                    <!-- <td id="gps_9"></td> -->
+                    <td id="battery_9"></td>
+                    <td id="console_9"><div id="console_span_9" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
+                  </tr>
+                  <tr  class="table">
+                    <td  class="sticky-col" id="id_10">10</td>
+                    <td id="ip_10"><input type="text" value="127.0.0.1" class="input-sm" style='width:7.5em; text-align: center;' id="10_in" onchange="changeIp(this.value, this.id)"></td>
+                    <td id="roslibjs_status_10">Waiting...</td>
+                    <td id="checkbox_10">
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" name="uav_checkbox"  class="custom-control-input" id="10_selected" checked="">
+                          <label class="custom-control-label" for="10_selected"></label>
+                        </div>
+                    </td>
+                    <td id="toggle_img_10">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="10_img" name="customRadio" class="custom-control-input"  onclick="changeImg(this.id)">
+                            <label class="custom-control-label" for="10_img"></label>
+                        </div>
+                    </td>
+                    <td id="uav_status_10"></td>
+                    <td id="x_10"></td>
+                    <td id="y_10"></td>
+                    <td id="z_10"></td>
+                    <td id="altitude_10"></td>
+                    <td id="heading_10"></td>
+                    <!-- <td id="gps_10"></td> -->
+                    <td id="battery_10"></td>
+                    <td id="console_10"><div id="console_span_10" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
+                  </tr>
+  
+                </tbody>
+              </table>
+            </div>
+            <!-- <div style="text-align: center; height: 200px; width: 100%; overflow-y: scroll;" id="uav_cosole"></div> -->
+          </div>
+      </div> <!-- second row -->
 
-      <!-- row 2: images and mission command -->
+      <!-- row 3: Mission   -->
       <div class="row">
         <!-- mission -->
-        <div class="card  text-white bg-dark  border-light col-sm-6">
-          <h3 style="text-align: center;" class="card-header">Mission Control</h3>
-          <div style="text-align: center;" class="card-body">
+        <div class="card  text-white bg-dark  border-light col-sm-12">
+            <h4 style="text-align: center;" id="m_console" class="card-header">Mission Control</h3>
+            <div style="text-align: center;" class="card-body">
+              <!-- <div class="row">
+                <div class="container  col-sm-8">
+                  <p id="m_console" style="text-align: left;  font-weight:bold;">Waiting for Mission</p>
+                </div>
+                <div class="custom-control custom-switch col-sm-2">
+                  <input type="checkbox" class="custom-control-input" id="swarm_toggle" onclick="triggerSwarm()"  >
+                  <label class="custom-control-label" for="swarm_toggle">Swarm</label>
+                </div>
+              </div> -->
             <div class="row">
-              <!-- <div class="container  col-sm-2"></div> -->
-              <div class="container  col-sm-8">
-                  <!-- color:rgb(0,0,128); -->
-                <p id="m_console" style="text-align: left;  font-weight:bold;">Waiting for Mission</p>
+              <div class=" col-sm-1"></div>
+              <div class=" col-sm-3">
+                
+                <!-- <p></p>
+                <div class="custom-control custom-checkbox " >            
+                    <input type="checkbox" class="custom-control-input" id="uav_control_center" checked="">
+                    <label class="custom-control-label" for="uav_control_center">Selected All UAV</label>
+                </div> -->
+                <div class="btn-group bg-light  " data-toggle="buttons">
+                    <button type="button" id="select_all_btn" class="btn btn-outline-info" onclick="selectAllUAV()">Select All</button>
+                    <button type="button" id="clear_all_btn" class="btn btn-outline-success" onclick="clearAllUAV()" >Clear All</button> 
+                  </div>
               </div>
-              <div class="custom-control custom-switch col-sm-2">
-                <input type="checkbox" class="custom-control-input" id="swarm_toggle" onclick="triggerSwarm()"  >
-                <label class="custom-control-label" for="swarm_toggle">Swarm</label>
+              <div class=" col-sm-7">
+                
+                <div class="btn-group bg-light  " data-toggle="buttons">
+                  <button type="button" id="engine0" class="btn btn-outline-primary">Engine0</button>
+                  <button type="button" id="takeoff" class="btn btn-outline-primary">Takeoff</button> 
+                  <button type="button" id="swarm" class="btn btn-outline-primary">Swarm</button>
+                  <button type="button" id="mission" class="btn btn-outline-primary">Mission</button>
+                  <button type="button" id="hover" class="btn btn-outline-primary">Hover</button>
+                  <button type="button" id="land" class="btn btn-outline-primary">    Land </button>
+                </div>
+                <p></p>
+                <p class="text-danger">Please make sure you have selected the right UAVs  before sending any commands!</p>
               </div>
-            </div>
-            <div class="btn-group bg-light" data-toggle="buttons">
-              <button type="button" id="engine0" class="btn btn-outline-warning">Engine0</button>
-              <button type="button" id="takeoff" class="btn btn-outline-success">Takeoff</button>
-              <button type="button" id="mission" class="btn btn-outline-info">Mission</button>
-              <button type="button" id="landing" class="btn btn-outline-primary">Landing</button>
             </div>
           </div>
-        </div>
-        <!-- images -->
-        <div class="card  col-sm-6">
-        <!-- <h3 style="text-align: center;" class="card-header">ZED</h3> -->
-            <img id="zed_image" style="height: 186px; width: 100%; " src=" " alt="Target Tracking">
-        </div>
-      </div> <!-- second row -->
+        </div>  
+      </div>
 
     </div> <!-- end contents -->
 
