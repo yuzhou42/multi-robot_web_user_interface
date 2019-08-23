@@ -153,7 +153,7 @@ function clearAllUAV( ){
 
 function taskManeger(){
     document.getElementById("engine0").onclick = function(){
-        m_console.innerHTML = "Engine0 command sent";
+        m_console.innerHTML = "Engine0 sent";
         var msg = new ROSLIB.Message({data : 0});
         for (var table_id=1; table_id<=uav_num; table_id++){
             if(document.getElementById(table_id + '_selected').checked){ 
@@ -163,7 +163,7 @@ function taskManeger(){
     }
 
     document.getElementById("takeoff").onclick = function(){
-        m_console.innerHTML = "Takeoff command sent";
+        m_console.innerHTML = "Takeoff sent";
         var msg = new ROSLIB.Message({data : 1});
         for (var table_id=1; table_id<=uav_num; table_id++){
             if(document.getElementById(table_id + '_selected').checked){
@@ -173,7 +173,7 @@ function taskManeger(){
     }
 
     document.getElementById("mission").onclick = function(){
-        m_console.innerHTML = "Mission command sent";
+        m_console.innerHTML = "Mission sent";
         var msg = new ROSLIB.Message({data : 2});
         for (var table_id=1; table_id<=uav_num; table_id++){
             if(document.getElementById(table_id + '_selected').checked){
@@ -183,7 +183,7 @@ function taskManeger(){
     }
 
     document.getElementById("swarm").onclick = function(){
-        m_console.innerHTML = "swarm command sent";
+        m_console.innerHTML = "Swarm sent";
         var msg = new ROSLIB.Message({data : 3});
         for (var table_id=1; table_id<=uav_num; table_id++){
             if(document.getElementById(table_id + '_selected').checked){
@@ -193,7 +193,7 @@ function taskManeger(){
     }
 
     document.getElementById("hover").onclick = function(){
-        m_console.innerHTML = "Hover command sent";
+        m_console.innerHTML = "Hover sent";
         var msg = new ROSLIB.Message({data : 4});
         for (var table_id=1; table_id<=uav_num; table_id++){
             if(document.getElementById(table_id + '_selected').checked){
@@ -203,7 +203,7 @@ function taskManeger(){
     }
 
     document.getElementById("land").onclick = function(){
-        m_console.innerHTML = "Land command sent";
+        m_console.innerHTML = "Land sent";
         var msg = new ROSLIB.Message({data : 5});
         for (var table_id=1; table_id<=uav_num; table_id++){
             if(document.getElementById(table_id + '_selected').checked){

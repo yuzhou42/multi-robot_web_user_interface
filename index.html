@@ -76,7 +76,7 @@
 
   <body class="bg-light">
     <!-- navigation bar -->
-    <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top" >
+    <!-- <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top" >
       <a class="navbar-brand" href="#">Kerrigan</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -87,29 +87,27 @@
           <li class="nav-item active">
             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
           </li>
-          <!-- <li class="nav-item">
+          <li class="nav-item">
             <a class="nav-link" href="#mission_tab">Mission</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">About</a>
-          </li> -->
+          </li>
         </ul>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-4" ></div>
                 <div class="col-sm-8"  style="text-align: right;" >
-                    <!-- <span id="server-ip"></span> (<span id="roslibjs-status"> Waiting to Connect... </span>)
-                    <span id="server-150"></span> (<span id="roslibjs150-status"> Waiting to Connect... </span>) -->
                 </div>
             </div>
         </div>
       </div>
-    </nav>
+    </nav> -->
 
     <!-- start contents -->
     <div class="container-fluid">
-        <h1>Place Hold</h1>
-        <h1>Place Hold</h1>
+        <!-- <h1>Place Hold</h1>
+        <h1>Place Hold</h1> -->
     <!-- row 1:  map and images -->
       <div class="row">
 
@@ -121,7 +119,7 @@
         <!-- images -->
         <div class="card  col-sm-4">
             <!-- <h3 style="text-align: center;" class="card-header">ZED</h3> -->
-          <object style="height: 400px; width: 100%;" data="kerriganlibjs/tracking.jpg" type="image/jpg">
+          <object style="height: 37vh; width: 100%;" data="kerriganlibjs/tracking.jpg" type="image/jpg">
             <img id="zed_image"  src="" alt="Target Tracking">
           </object>
         </div>
@@ -146,7 +144,7 @@
                     <th scope="col">Lon</th>
                     <th scope="col">z</th>
                     <th scope="col">Alt</th>
-                    <th scope="col">Yaw</th>
+                    <th scope="col">Speed</th>
                     <!-- <th scope="col">GPS</th>  -->
                     <th scope="col">Error</th>
                     <th scope="col">Console</th>
@@ -425,27 +423,23 @@
 
       <!-- row 3: Mission   -->
       <div class="row">
-        <!-- mission -->
-        <div class="card  text-white    border-light col-sm-12">
-            <h4 style="text-align: center;" id="m_console" class="card-header bg-dark">Mission Control</h3>
-            <div style="text-align: center;" class="card-body">
-            <div class="row">
-              <div class=" col-sm-4">
-                <button type="button" id="select_all_btn" class="btn btn-outline-info" onclick="selectAllUAV()">Select All</button>
-                <button type="button" id="clear_all_btn" class="btn btn-outline-success" onclick="clearAllUAV()" >Clear All</button> 
-              </div>
-              <div class=" col-sm-8">
-                  <button type="button" id="engine0" class="btn btn-outline-primary">Engine0</button>
-                  <button type="button" id="takeoff" class="btn btn-outline-primary">Takeoff</button> 
-                  <button type="button" id="mission" class="btn btn-outline-primary">Mission</button>
-                  <button type="button" id="swarm" class="btn btn-outline-primary">Swarm</button>
-                  <button type="button" id="hover" class="btn btn-outline-primary">Hover</button>
-                  <button type="button" id="land" class="btn btn-outline-primary">    Land </button>
-                <p></p>
-                <p class="text-danger">Please make sure you have selected the right UAVs  before sending any commands!</p>
-              </div>
-            </div>
-          </div>
+        <!-- mission --> 
+            <!-- <h4 style="text-align: center;" id="m_console" class="card-header bg-dark">Mission Control</h3> -->  
+        <div class=" col-sm-4">
+          <span class="text-primary" style="padding: 0 1% 0 3%;">UAV Selection  </span>
+          <button type="button" id="select_all_btn" class="btn btn-outline-info  btn-sm" onclick="selectAllUAV()">Select All</button>
+          <button type="button" id="clear_all_btn" class="btn btn-outline-info  btn-sm" onclick="clearAllUAV()" >Clear All</button> 
+        </div>
+        <div class=" col-sm-8">
+            <span class="text-primary" style="padding: 0 1%;">Send Command  </span>
+            <button type="button" id="engine0" class="btn btn-outline-primary btn-sm">Engine0</button>
+            <button type="button" id="takeoff" class="btn btn-outline-primary btn-sm">Takeoff</button> 
+            <button type="button" id="mission" class="btn btn-outline-primary btn-sm">Mission</button>
+            <button type="button" id="swarm" class="btn btn-outline-primary btn-sm">Swarm</button>
+            <button type="button" id="hover" class="btn btn-outline-primary btn-sm">Hover</button>
+            <button type="button" id="land" class="btn btn-outline-primary btn-sm">    Land </button>
+            <span class="text-danger" id="m_console"  style="padding: 0 2% 0 5%;"> </span>
+          <!-- <p class="text-danger" >Please make sure you have selected the right UAVs  before sending any commands!</p>  -->
         </div>  
       </div>
 
