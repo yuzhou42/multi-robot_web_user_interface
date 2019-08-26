@@ -75,11 +75,27 @@ function subscribeUAVPoseInfo(uav_id, table_id){
         // z_global = msg.pose.position.z.toFixed(2);
         var q = msg.pose.orientation;
         var yaw = - Math.atan2(2.0*(q.x*q.y + q.w*q.z), (q.w*q.w + q.x*q.x - q.y*q.y - q.z*q.z))/Math.PI*180;
-        // var yaw = Math.asin(-2.0*(q.x*q.z - q.w*q.y))/Math.PI*180;
-        // var yaw = Math.atan2(2.0*(q.y*q.z + q.w*q.x), q.w*q.w - q.x*q.x - q.y*q.y + q.z*q.z)/Math.PI*180;
         document.getElementById("heading_"+table_id).innerHTML = yaw.toFixed(0);
-        // atan2(2.0*(q.y*q.z + q.w*q.x), q.w*q.w - q.x*q.x - q.y*q.y + q.z*q.z);
+        
+    });
+}
 
+function subscribeUAVPoseWSpeed(uav_id, table_id){
+
+    var listener = new ROSLIB.Topic({
+        ros : window['ros_'+ table_id],
+        name : '/mavros/position/local_state/sys_id_' + uav_id,
+        messageType : 'nus_msgs/StateWithCovarianceStamped'
+    });
+    // alert(listener.name);
+    listener.subscribe(function(msg){
+        // alert(uav_id);
+        var vx = msg.velocity.twist.linear.x;
+        var vy = msg.velocity.twist.linear.y;
+        var vz = msg.velocity.twist.linear.z;
+        var uav_speed = Math.sqrt(vx*vx + vy*vy + vz*vz);
+        document.getElementById("z_"+table_id).innerHTML = msg.pose.pose.position.z.toFixed(2);
+        document.getElementById("speed_"+table_id).innerHTML = uav_speed.toFixed(2);
     });
 }
 
@@ -92,6 +108,11 @@ function subscribeGPS(uav_id, table_id){
         messageType : 'sensor_msgs/NavSatFix'
     });
     listener.subscribe(function(msg){
+
+        document.getElementById("x_"+table_id).innerHTML = msg.latitude.toFixed(5);
+        document.getElementById("y_"+table_id).innerHTML = msg.longitude.toFixed(5);
+        document.getElementById("altitude_"+table_id).innerHTML = msg.altitude.toFixed(2);
+
         // alert(msg.latitude);
         var path =  window["gps_path_"+table_id].getPath();
         var polyLatLng = new google.maps.LatLng(msg.latitude, msg.longitude);
@@ -112,33 +133,33 @@ function subscribeGPS(uav_id, table_id){
     });
 }
 
-function subscribeBattery(uav_id, table_id){
+// function subscribeBattery(uav_id, table_id){
 
-    var listener = new ROSLIB.Topic({
-        ros : window['ros_'+ table_id],
-        name : '/mavros/battery/sys_id_'  + uav_id,
-        // name : '/px4/raw/gps' ,
-        messageType : 'mavros/BatteryStatus'
-    });
-    listener.subscribe(function(msg){
-        // alert(uav_id);
-        document.getElementById("battery_"+table_id).innerHTML = msg.voltage.toFixed(2);
-    });
-}
+//     var listener = new ROSLIB.Topic({
+//         ros : window['ros_'+ table_id],
+//         name : '/mavros/battery/sys_id_'  + uav_id,
+//         // name : '/px4/raw/gps' ,
+//         messageType : 'mavros/BatteryStatus'
+//     });
+//     listener.subscribe(function(msg){
+//         // alert(uav_id);
+//         document.getElementById("battery_"+table_id).innerHTML = msg.voltage.toFixed(2);
+//     });
+// }
 
-function subscribeAltitude(uav_id, table_id){
+// function subscribeAltitude(uav_id, table_id){
 
-    var listener = new ROSLIB.Topic({
-        ros : window['ros_'+ table_id],
-        name : '/mavros/global_position/global/sys_id_'  + uav_id,
-        // name : '/px4/raw/gps' ,
-        messageType : 'sensor_msgs/NavSatFix'
-    });
-    listener.subscribe(function(msg){
-        // alert(table_id);
-        document.getElementById("x_"+table_id).innerHTML = msg.latitude.toFixed(6);
-        document.getElementById("y_"+table_id).innerHTML = msg.longitude.toFixed(6);
-        document.getElementById("altitude_"+table_id).innerHTML = msg.altitude.toFixed(2);
-    });
-}
+//     var listener = new ROSLIB.Topic({
+//         ros : window['ros_'+ table_id],
+//         name : '/mavros/global_position/global/sys_id_'  + uav_id,
+//         // name : '/px4/raw/gps' ,
+//         messageType : 'sensor_msgs/NavSatFix'
+//     });
+//     listener.subscribe(function(msg){
+//         // alert(table_id);
+//         document.getElementById("x_"+table_id).innerHTML = msg.latitude.toFixed(6);
+//         document.getElementById("y_"+table_id).innerHTML = msg.longitude.toFixed(6);
+//         document.getElementById("altitude_"+table_id).innerHTML = msg.altitude.toFixed(2);
+//     });
+// }
 

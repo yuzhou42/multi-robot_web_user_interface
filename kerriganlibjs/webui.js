@@ -12,6 +12,8 @@ var pathWeight = 2; //path width
 var pathColor = ["#ffff00","#ff0000","#ff8000",  "#80ff00", "#00ff80",
 "#00ffff", "#0000ff", "	#8000ff", "	#ff00bf", "	#ff0040"]; //path color
 var markers = []; //Google map markers
+var Blackmore_Lat_Lon = {lat: 1.32854998112, lng: 103.786003113};
+var Tuas_Lat_Lon = {lat: 1.266500, lng: 103.640000};
 var img_IP;
 
 // mission from ui
@@ -213,6 +215,64 @@ function taskManeger(){
     }
 }
 
+function CenterControl(controlDiv, map) {
+    var controlUI = document.createElement('div');
+    controlUI.style.backgroundColor = '#fff';
+    controlUI.style.border = '0px solid #fff';
+    controlUI.style.borderRadius = '3px';
+    // controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+    controlUI.style.cursor = 'pointer';
+    controlUI.style.marginBottom = '22px'; // to the bottom line of google map
+    controlUI.style.textAlign = 'center';
+    controlUI.style.justifyContent = 'center';
+    controlUI.style.height = '4vh';
+    controlUI.title = 'Click to choose test sites';
+    controlDiv.appendChild(controlUI);
+    
+    //label_blackmore
+    var label_blackmore = document.createElement('LABEL');
+    label_blackmore.style.color = 'rgb(25,25,25)';
+    label_blackmore.style.fontFamily = 'Roboto,Arial,sans-serif';
+    label_blackmore.style.fontSize = '16px';
+    label_blackmore.style.padding = '0.5vh 1vw 0.5vh 1vw'; //top right bottom left
+    label_blackmore.innerHTML = "Blackmore";
+
+    var toggle_blackmore = document.createElement('INPUT');
+    toggle_blackmore.type = "radio";
+    toggle_blackmore.id = "blackmore_btn";
+    toggle_blackmore.name = "toggle_location";
+    toggle_blackmore.checked = "checked";
+    label_blackmore.appendChild(toggle_blackmore);
+    controlUI.appendChild(label_blackmore); 
+
+    // Setup the click event listeners: simply set the map to Blackmore.
+    toggle_blackmore.addEventListener('click', function() {
+        map.setCenter(Blackmore_Lat_Lon);
+    });
+
+    //label_tuas
+    var label_tuas = document.createElement('LABEL');
+    label_tuas.style.color = 'rgb(25,25,25)';
+    label_tuas.style.fontFamily = 'Roboto,Arial,sans-serif';
+    label_tuas.style.fontSize = '16px';
+    label_tuas.style.padding = '0.5vh 1vw 0.5vh 1vw';
+    label_tuas.innerHTML = "Tuas";
+
+    var toggle_tuas = document.createElement('INPUT');
+    toggle_tuas.type = "radio";
+    toggle_tuas.id = "tuas_btn";
+    toggle_tuas.name = "toggle_location";
+    toggle_tuas.checked = "";
+    label_tuas.appendChild(toggle_tuas);
+    controlUI.appendChild(label_tuas); 
+    
+    toggle_tuas.addEventListener('click', function() {
+        map.setCenter(Tuas_Lat_Lon);
+    });
+
+  }
+
+
 function initMap() {
 
     google_map = new google.maps.Map(document.getElementById('map'), {
@@ -231,6 +291,14 @@ function initMap() {
           });
         window["gps_path_"+table_id].setMap(google_map);
     }
+
+    // constructor passing in this DIV.
+    var centerControlDiv = document.createElement('div');
+    var centerControl = new CenterControl(centerControlDiv, google_map);
+
+    centerControlDiv.index = 1;
+    google_map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(centerControlDiv);
+
   }
 
 window.onload = function () {
@@ -242,11 +310,12 @@ window.onload = function () {
         var uav_id = document.getElementById("id_"+table_id).textContent;
 
         rosConnection(table_id,document.getElementById("roslibjs_status_"+table_id),uav_ip);
-        subscribeUAVPoseInfo(uav_id , table_id);
+        // subscribeUAVPoseInfo(uav_id , table_id);
+        subscribeUAVPoseWSpeed(uav_id , table_id);
         initMissionPublisher(uav_id, table_id);
         subscribeGPS(uav_id, table_id);
-        subscribeAltitude(uav_id, table_id);
-        subscribeBattery(uav_id, table_id);
+        // subscribeAltitude(uav_id, table_id);
+        // subscribeBattery(uav_id, table_id);
         subscribeRosout(table_id);
         if(document.getElementById(table_id+"_img").checked)
         {
