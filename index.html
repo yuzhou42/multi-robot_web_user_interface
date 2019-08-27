@@ -422,22 +422,23 @@
       </div> <!-- second row -->
 
       <!-- row 3: Mission   -->
-      <div class="row">
+      <div class="row bg-dark " style = "border-style:hidden;color:white; ">
         <!-- mission --> 
             <!-- <h4 style="text-align: center;" id="m_console" class="card-header bg-dark">Mission Control</h3> -->  
-        <div class=" col-sm-4">
-          <span class="text-primary" style="padding: 0 1% 0 3%;">UAV Selection  </span>
-          <button type="button" id="select_all_btn" class="btn btn-outline-info  btn-sm" onclick="selectAllUAV()">Select All</button>
-          <button type="button" id="clear_all_btn" class="btn btn-outline-info  btn-sm" onclick="clearAllUAV()" >Clear All</button> 
+        <!-- <div class=" col-sm-1 "></div> -->
+        <div class=" col-sm-4 ">
+          <span class=" " style="padding: 0 1% 0 3%;">UAV Selection  </span>
+          <button type="button" id="select_all_btn" class="btn btn-success  btn-sm" onclick="selectAllUAV()">Select All</button>
+          <button type="button" id="clear_all_btn" class="btn btn-success  btn-sm" onclick="clearAllUAV()" >Clear All</button> 
         </div>
         <div class=" col-sm-8">
-            <span class="text-primary" style="padding: 0 1%;">Send Command  </span>
-            <button type="button" id="engine0" class="btn btn-outline-primary btn-sm">Engine0</button>
-            <button type="button" id="takeoff" class="btn btn-outline-primary btn-sm">Takeoff</button> 
-            <button type="button" id="mission" class="btn btn-outline-primary btn-sm">Mission</button>
-            <button type="button" id="swarm" class="btn btn-outline-primary btn-sm">Swarm</button>
-            <button type="button" id="hover" class="btn btn-outline-primary btn-sm">Hover</button>
-            <button type="button" id="land" class="btn btn-outline-primary btn-sm">    Land </button>
+            <span class=" " style="padding: 0 1%; ">Send Command  </span>
+            <button type="button" id="engine0" class="btn btn-danger btn-sm">Engine0</button>
+            <button type="button" id="takeoff" class="btn btn-danger btn-sm">Takeoff</button> 
+            <button type="button" id="mission" class="btn btn-danger btn-sm">Mission</button>
+            <button type="button" id="swarm" class="btn btn-danger btn-sm">Swarm</button>
+            <button type="button" id="hover" class="btn btn-danger btn-sm">Hover</button>
+            <button type="button" id="land" class="btn btn-danger btn-sm">    Land </button>
             <span class="text-danger" id="m_console"  style="padding: 0 2% 0 5%;"> </span>
           <!-- <p class="text-danger" >Please make sure you have selected the right UAVs  before sending any commands!</p>  -->
         </div>  
