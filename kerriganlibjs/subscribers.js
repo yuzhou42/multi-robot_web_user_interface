@@ -99,6 +99,38 @@ function subscribeUAVPoseWSpeed(uav_id, table_id){
     });
 }
 
+function subErrorState(uav_id, table_id){
+    var listener = new ROSLIB.Topic(
+        {
+            ros: window['ros_' + table_id],
+            name: '/task_manager/error_state/sys_id_' + uav_id,
+            messageType: 'std_msgs/Byte'
+        }
+    );
+        
+    listener.subscribe(function(msg){
+        var CLASS_NAME;
+        switch(msg.data){
+            case 15:
+                CLASS_NAME = "text-success";
+                break;
+            case 22:
+            case 23:
+            case 24:
+                CLASS_NAME = "text-warning";
+                break;
+            default:
+                CLASS_NAME = "text-danger";
+                break;
+        }
+
+        var error_table = document.getElementById("error_"+table_id);
+        error_table.className = CLASS_NAME;
+        error_table.innerHTML = errorState[msg.data];
+        // console.log(errorState[msg.data]);
+    });
+}
+
 function subscribeGPS(uav_id, table_id){
 
     var listener = new ROSLIB.Topic({

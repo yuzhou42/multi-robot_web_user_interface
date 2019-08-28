@@ -64,7 +64,8 @@
     <script src="./roslibjs/eventemitter2.js"></script>
     <script src="./roslibjs/ros3d.js"></script>
 
-
+    <script src="jquery/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
     <script src="kerriganlibjs/webui.js"></script>
     <script src="kerriganlibjs/subscribers.js"></script>
 <!-- google map -->
@@ -153,8 +154,8 @@
                 <!-- <tbody style="width:50%; height: width; overflow-y: scroll"> -->
                   <tbody>
                   <tr  class="table" >
-                    <td  class="sticky-col" id="id_1">11</td>
-                    <td id="ip_1"><input type="text" value="192.168.1.152" class="input-sm" style='width:7.5em; text-align: center;' id="1_in" onchange="changeIp(this.value, this.id)"></td>
+                    <td  class="sticky-col" id="id_1">1</td>
+                    <td id="ip_1"><input type="text" value="127.0.0.1" class="input-sm" style='width:7.5em; text-align: center;' id="1_in" onchange="changeIp(this.value, this.id)"></td>
                     <td id="roslibjs_status_1">Waiting...</td>
                     <td id="checkbox_1">
                       <div class="custom-control custom-checkbox" >
@@ -180,8 +181,8 @@
   
                   </tr>
                   <tr  class="table">
-                    <td  class="sticky-col" id="id_2">15</td>
-                    <td id="ip_2"><input type="text" value="192.168.1.153" class="input-sm" style='width:7.5em; text-align: center;' id="2_in" onchange="changeIp(this.value, this.id)"></td>
+                    <td  class="sticky-col" id="id_2"></td>
+                    <td id="ip_2"><input type="text" value="" class="input-sm" style='width:7.5em; text-align: center;' id="2_in" onchange="changeIp(this.value, this.id)"></td>
                     <td id="roslibjs_status_2">Waiting...</td>
                     <td id="checkbox_2">
                         <div class="custom-control custom-checkbox">
@@ -206,8 +207,8 @@
                     <td id="console_2"><div id="console_span_2" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
                   </tr>
                   <tr  class="table">
-                    <td  class="sticky-col" id="id_3">17</td>
-                    <td id="ip_3"><input type="text" value="192.168.1.117" class="input-sm" style='width:7.5em; text-align: center;' id="3_in" onchange="changeIp(this.value, this.id)"></td>
+                    <td  class="sticky-col" id="id_3"></td>
+                    <td id="ip_3"><input type="text" value="" class="input-sm" style='width:7.5em; text-align: center;' id="3_in" onchange="changeIp(this.value, this.id)"></td>
                     <td id="roslibjs_status_3">Waiting...</td>
                     <td id="checkbox_3">
                         <div class="custom-control custom-checkbox">
@@ -232,8 +233,8 @@
                     <td id="console_3"><div id="console_span_3" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
                   </tr>
                   <tr  class="table">
-                    <td  class="sticky-col" id="id_4">20</td>
-                    <td id="ip_4"><input type="text" value="192.168.1.120" class="input-sm" style='width:7.5em; text-align: center;' id="4_in" onchange="changeIp(this.value, this.id)"></td>
+                    <td  class="sticky-col" id="id_4"></td>
+                    <td id="ip_4"><input type="text" value="" class="input-sm" style='width:7.5em; text-align: center;' id="4_in" onchange="changeIp(this.value, this.id)"></td>
                     <td id="roslibjs_status_4">Waiting...</td>
                     <td id="checkbox_4">
                         <div class="custom-control custom-checkbox">
@@ -258,8 +259,8 @@
                     <td id="console_4"><div id="console_span_4" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
                   </tr>
                   <tr  class="table">
-                    <td  class="sticky-col" id="id_5">18</td>
-                    <td id="ip_5"><input type="text" value="192.168.1.149" class="input-sm" style='width:7.5em; text-align: center;' id="5_in" onchange="changeIp(this.value, this.id)"></td>
+                    <td  class="sticky-col" id="id_5"></td>
+                    <td id="ip_5"><input type="text" value="" class="input-sm" style='width:7.5em; text-align: center;' id="5_in" onchange="changeIp(this.value, this.id)"></td>
                     <td id="roslibjs_status_5">Waiting...</td>
                     <td id="checkbox_5">
                         <div class="custom-control custom-checkbox">
@@ -284,8 +285,8 @@
                     <td id="console_5"><div id="console_span_5" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
                   </tr>
                   <tr  class="table">
-                    <td  class="sticky-col" id="id_6">6</td>
-                    <td id="ip_6"><input type="text" value="127.0.0.1" class="input-sm" style='width:7.5em; text-align: center;' id="6_in" onchange="changeIp(this.value, this.id)"></td>
+                    <td  class="sticky-col" id="id_6"></td>
+                    <td id="ip_6"><input type="text" value="" class="input-sm" style='width:7.5em; text-align: center;' id="6_in" onchange="changeIp(this.value, this.id)"></td>
                     <td id="roslibjs_status_6">Waiting...</td>
                     <td id="checkbox_6">
                         <div class="custom-control custom-checkbox">
@@ -310,8 +311,8 @@
                     <td id="console_6"><div id="console_span_6" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
                   </tr>
                   <tr  class="table">
-                    <td class="sticky-col"  id="id_7">7</td>
-                    <td id="ip_7"><input type="text" value="127.0.0.1" class="input-sm" style='width:7.5em; text-align: center;' id="7_in" onchange="changeIp(this.value, this.id)"></td>
+                    <td class="sticky-col"  id="id_7"></td>
+                    <td id="ip_7"><input type="text" value="" class="input-sm" style='width:7.5em; text-align: center;' id="7_in" onchange="changeIp(this.value, this.id)"></td>
                     <td id="roslibjs_status_7">Waiting...</td>
                     <td id="checkbox_7">
                         <div class="custom-control custom-checkbox">
@@ -336,8 +337,8 @@
                     <td id="console_7"><div id="console_span_7" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
                   </tr>
                   <tr  class="table">
-                    <td  class="sticky-col" id="id_8">8</td>
-                    <td id="ip_8"><input type="text" value="127.0.0.1" class="input-sm" style='width:7.5em; text-align: center;' id="8_in" onchange="changeIp(this.value, this.id)"></td>
+                    <td  class="sticky-col" id="id_8"></td>
+                    <td id="ip_8"><input type="text" value="" class="input-sm" style='width:7.5em; text-align: center;' id="8_in" onchange="changeIp(this.value, this.id)"></td>
                     <td id="roslibjs_status_8">Waiting...</td>
                     <td id="checkbox_8">
                         <div class="custom-control custom-checkbox">
@@ -362,8 +363,8 @@
                     <td id="console_8"><div id="console_span_8" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
                   </tr>
                   <tr  class="table">
-                    <td  class="sticky-col" id="id_9">2</td>
-                    <td id="ip_9"><input type="text" value="127.0.0.1" class="input-sm" style='width:7.5em; text-align: center;' id="9_in" onchange="changeIp(this.value, this.id)"></td>
+                    <td  class="sticky-col" id="id_9"></td>
+                    <td id="ip_9"><input type="text" value="" class="input-sm" style='width:7.5em; text-align: center;' id="9_in" onchange="changeIp(this.value, this.id)"></td>
                     <td id="roslibjs_status_9">Waiting...</td>
                     <td id="checkbox_9">
                         <div class="custom-control custom-checkbox">
@@ -388,8 +389,8 @@
                     <td id="console_9"><div id="console_span_9" style='width:20em; overflow:hidden; text-align: center; height: 1.5em;'></div></td>
                   </tr>
                   <tr  class="table">
-                    <td  class="sticky-col" id="id_10">10</td>
-                    <td id="ip_10"><input type="text" value="127.0.0.1" class="input-sm" style='width:7.5em; text-align: center;' id="10_in" onchange="changeIp(this.value, this.id)"></td>
+                    <td  class="sticky-col" id="id_10"></td>
+                    <td id="ip_10"><input type="text" value="" class="input-sm" style='width:7.5em; text-align: center;' id="10_in" onchange="changeIp(this.value, this.id)"></td>
                     <td id="roslibjs_status_10">Waiting...</td>
                     <td id="checkbox_10">
                         <div class="custom-control custom-checkbox">

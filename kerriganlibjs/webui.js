@@ -16,6 +16,33 @@ var Blackmore_Lat_Lon = {lat: 1.32854998112, lng: 103.786003113};
 var Tuas_Lat_Lon = {lat: 1.266500, lng: 103.640000};
 var img_IP;
 
+var errorState = [
+    "Roll Error",      // 0: roll, 1: pitch
+    "Pitch Error",
+    "Mag N Error",     // 2: magN, 3: magE, 4: magD
+    "Mag E Error",
+    "Mag Z Error",
+    "Acc N Error",     // 5: accN, 6: accE, 7: accD
+    "Acc E Error",
+    "Acc Z Error",
+    "Eph Error",       // 8: eph, 9: epv, 10: velN, 11: velE, 12: velD, 13: gpsT
+    "Epv Error",
+    "GPS Vel N Error",
+    "GPS Vel E Error",
+    "GPS Vel D Error",
+    "GPS Time Error",
+    "Imu Stuck",        // 14: imuStuck
+    "All Good",         // 15
+    "Disarm Error",     // 16     
+    "Arm Error",        // 17      
+    "Prearm Error",     // 18     
+    "Unexpected Error", // 19
+    "Soft Geofence Violence", // 20          
+    "Hard Geofence Violence", // 21 
+    "Return Home Activated",  // 22       
+    "Non Gps Landing Activated", // 23    
+    "Flight Termination Activated"]; //24
+
 // mission from ui
 var mission_pub_1;
 var mission_pub_2;
@@ -52,6 +79,8 @@ var gps_path_8;
 var gps_path_9;
 var gps_path_10;
 
+
+
 function rosConnection(table_id,table_cell, uav_ip) {
     //vip: it is important to use reference here instead of value as a parameter
     window['ros_'+table_id] = new ROSLIB.Ros({
@@ -74,6 +103,7 @@ function rosConnection(table_id,table_cell, uav_ip) {
         table_cell.style.color = "crimson";
     });
 }
+
 function changeIp(ip, id) {
     var id_s2i = parseInt(id,10);
     // alert("I'm in"+id_s2i);
@@ -305,26 +335,30 @@ window.onload = function () {
     // robot_IP = location.hostname;
     // Init handle for rosbridge_websocket
 
-    for (var table_id=1; table_id<=uav_num; table_id++){
-        var uav_ip =  document.getElementById(table_id+"_in").value;
-        var uav_id = document.getElementById("id_"+table_id).textContent;
-
-        rosConnection(table_id,document.getElementById("roslibjs_status_"+table_id),uav_ip);
-        // subscribeUAVPoseInfo(uav_id , table_id);
-        subscribeUAVPoseWSpeed(uav_id , table_id);
-        initMissionPublisher(uav_id, table_id);
-        subscribeGPS(uav_id, table_id);
-        // subscribeAltitude(uav_id, table_id);
-        // subscribeBattery(uav_id, table_id);
-        subscribeRosout(table_id);
-        if(document.getElementById(table_id+"_img").checked)
-        {
-            img_IP = uav_ip;
-            viewImage(img_IP);
+    $.getJSON( "kerriganlibjs/uav.json", function( uav_info ) {
+        // console.log(uav_info.length);
+        for (var table_id=1; table_id<=uav_num; table_id++){
+            var uav_ip = uav_info[table_id-1].ip;
+            var uav_id = uav_info[table_id-1].id;
+            document.getElementById("id_"+table_id).innerHTML = uav_id;
+            document.getElementById(table_id + "_in").value = uav_ip;
+            console.log(uav_ip);
+            console.log(uav_id);
+            rosConnection(table_id,document.getElementById("roslibjs_status_"+table_id),uav_ip);
+            // subscribeUAVPoseInfo(uav_id , table_id);
+            subscribeUAVPoseWSpeed(uav_id , table_id);
+            initMissionPublisher(uav_id, table_id);
+            subscribeGPS(uav_id, table_id);
+            // subscribeAltitude(uav_id, table_id);
+            // subscribeBattery(uav_id, table_id);
+            subscribeRosout(table_id);
+            subErrorState(uav_id, table_id);
+            if(document.getElementById(table_id+"_img").checked){
+                img_IP = uav_ip;
+                viewImage(img_IP);
+            }
         }
-            
-    }
-    
+      });
     m_console = document.getElementById("m_console");
     taskManeger();  // send command
 }
