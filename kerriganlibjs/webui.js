@@ -156,10 +156,20 @@ function initMissionPublisher(uav_id, table_id) {
     window['mission_pub_'+table_id].advertise();
 }
 
-function viewImage(uav_ip){
-    var zed_image =  document.getElementById('zed_image');
-    zed_image.src = "http://" + uav_ip + ":8080/stream?topic=/camera/image_raw&type=ros_compressed";
-    // zed_image.src = "http://" + uav_ip + ":8080/stream?topic=/zed/depth/depth_registered&type=mjpeg";
+function viewImage(uav_ip, table_id){
+    var simulation = new ROSLIB.Param({
+        ros : window['ros_'+ table_id],
+        name : '/simulation'
+    });
+
+    simulation.get(function(value){
+        console.log("Simulation: " + value);
+        var zed_image =  document.getElementById('zed_image');
+        if(value)
+            zed_image.src = "http://" + uav_ip + ":8080/stream?topic=/zed/depth/depth_registered&type=mjpeg";
+        else
+            zed_image.src = "http://" + uav_ip + ":8080/stream?topic=/camera/image_raw&type=ros_compressed";
+    });
 }
 
 function changeImg(id){
@@ -322,6 +332,22 @@ function initMap() {
         window["gps_path_"+table_id].setMap(google_map);
     }
 
+    var router_points = [
+        {lat: 1.267413, lng: 103.639773},
+        {lat: 1.266713, lng: 103.638996},
+        {lat: 1.266002, lng: 103.640052},
+        {lat: 1.267094, lng: 103.640769},
+        {lat: 1.267413, lng: 103.639773}
+      ];
+
+    var path_router = new google.maps.Polyline({
+        path: router_points,
+        strokeColor: "#D3D3D3",
+        strokeOpacity: pathOpacity,
+        strokeWeight: pathWeight
+      });
+    path_router.setMap(google_map);
+
     // constructor passing in this DIV.
     var centerControlDiv = document.createElement('div');
     var centerControl = new CenterControl(centerControlDiv, google_map);
@@ -355,7 +381,7 @@ window.onload = function () {
             subErrorState(uav_id, table_id);
             if(document.getElementById(table_id+"_img").checked){
                 img_IP = uav_ip;
-                viewImage(img_IP);
+                viewImage(img_IP,table_id);
             }
         }
       });
