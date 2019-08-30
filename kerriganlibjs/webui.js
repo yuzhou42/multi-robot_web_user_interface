@@ -159,16 +159,16 @@ function initMissionPublisher(uav_id, table_id) {
 function viewImage(uav_ip, table_id){
     var simulation = new ROSLIB.Param({
         ros : window['ros_'+ table_id],
-        name : '/simulation'
+        name : '/ddrone_task_manager/simulation'
     });
 
     simulation.get(function(value){
-        console.log("Simulation: " + value);
+        // console.log("Simulation: " + value);
         var zed_image =  document.getElementById('zed_image');
         if(value)
-            zed_image.src = "http://" + uav_ip + ":8080/stream?topic=/zed/depth/depth_registered&type=mjpeg";
+            video_object.data = "http://" + uav_ip + ":8080/stream?topic=/zed/depth/depth_registered&type=mjpeg";
         else
-            zed_image.src = "http://" + uav_ip + ":8080/stream?topic=/camera/image_raw&type=ros_compressed";
+            video_object.data = "http://" + uav_ip + ":8080/stream?topic=/camera/image_color&type=ros_compressed";
     });
 }
 
