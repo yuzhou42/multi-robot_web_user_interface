@@ -9,14 +9,14 @@
 
 ## User 
   You will have to deploy the web page to access it by IP address.
-- Packages Installation
+### 1. Packages Installation
 
   - nginx
     ```
     $ sudo apt-get update
     $ sudo apt-get install nginx
     ```
-- Setup
+### 2. Setup
 
   - Make sure the full path of your UI folder have 775 permission
     ```
@@ -35,11 +35,11 @@
     ```
     $ sudo systemctl restart nginx
     ```
-- Usage: access by IP
+### 3. Usage: access by IP
   
     Try "Open Incognito Window" in your web browser and put 127.0.0.1, you will be able to see the UI if you set everything correctly. It can be accessed by IP adress of your PC from any other devices under the same network as well.
 
-- Parameter:
+### 4. Parameter:
 
   - UAV id and ip address
     Change it from the kerriganlibjs/uav.json file.
@@ -66,7 +66,7 @@ You are good to stop here if you want to use the UI only. Remember to check out 
 
     To make your workspace look good
 
-### 3. Onboard PC setup 
+### 2. Onboard PC setup 
 ####  Download ros web server packages
 - web_video_server
     ```
@@ -93,21 +93,18 @@ You are good to stop here if you want to use the UI only. Remember to check out 
 ```
 
 
-### 4. Usage
-#### 1. Run UI launch file on the onboard PC
+### 3. Usage
+
+- Run UI launch file on the onboard PC
 ```
 $ roslaunch your_packages ui.launch
 (e.g. $ roslaunch ddrone_task_manager ddrone_ui.launch)
 
 ```
 
-#### 2. Access UI web page on local ground station
+- Access UI web page on local ground station From Vscode
 
-- Access From Vscode
-
-  - Open your workspace with Vscode
-  - Right click index.html in your Vscode
-  - Click "Open with Live Server" and then the web will show up in your browser
+  Open your workspace with Vscode; Right click index.html in your Vscode; Click "Open with Live Server" and then the web will show up in your browser
   
 
 # Tutorials and useful websites
