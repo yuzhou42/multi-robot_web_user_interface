@@ -215,13 +215,13 @@ function taskManeger(){
     }
 
     document.getElementById("mission").onclick = function(){
-        m_console.innerHTML = "Mission sent";
-        var msg = new ROSLIB.Message({data : 2});
-        for (var table_id=1; table_id<=uav_num; table_id++){
-            if(document.getElementById(table_id + '_selected').checked){
-                window['mission_pub_'+table_id].publish(msg);
-            }
-        }
+        // m_console.innerHTML = "Mission sent";
+        // var msg = new ROSLIB.Message({data : 2});
+        // for (var table_id=1; table_id<=uav_num; table_id++){
+        //     if(document.getElementById(table_id + '_selected').checked){
+        //         window['mission_pub_'+table_id].publish(msg);
+        //     }
+        // }
     }
 
     document.getElementById("swarm").onclick = function(){
