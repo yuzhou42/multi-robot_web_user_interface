@@ -33,9 +33,9 @@ var errorState = [
     "GPS Time Error",
     "Imu Stuck",        // 14: imuStuck
     "All Good",         // 15
-    "Disarm Error",     // 16     
-    "Arm Error",        // 17      
-    "Prearm Error",     // 18     
+    "Disarm",     // 16     
+    "Arm",        // 17      
+    "Prearm",     // 18     
     "Unexpected Error", // 19
     "Soft Geofence Violence", // 20          
     "Hard Geofence Violence", // 21 

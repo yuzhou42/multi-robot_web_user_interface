@@ -1,11 +1,53 @@
 # Kerrigan UI 
 # overview
-Ｔhis package is for web-based UI shown as the image. It can connect to multiple drones by their IP address and show status of each drone, such as positon, image, healthy status etc. User can sent commands (takeoff, mission, landing) to drone directly from the UI. Moreover, a Google map is inserted to show realtime location of the drone. 
+Ｔhis package is for web-based UI shown as the image. It can connect to multiple drones by their IP address and show status of each drone, such as positon, image, healthy status etc. User can sent commands (takeoff, mission, swarm, hover, landing) to drone directly from the UI. Moreover, a Google map is inserted to show realtime location and trajectory of the drones. 
 
 ![UI](kerriganlibjs/kerrigan_ui.png)
 **User Interface**
 
 # Installation
+
+## User 
+  You will have to deploy the web page to access it by IP address.
+- Packages Installation
+
+  - nginx
+    ```
+    $ sudo apt-get update
+    $ sudo apt-get install nginx
+    ```
+- Setup
+
+  - Make sure the full path of your UI folder have 775 permission
+    ```
+    $ chmod 775 folder_name 
+    Usually you will have to give SD card 775 permission if you put the UI inside it.
+    ```
+  - Config nginx
+    ```
+    $ sudo gedit /etc/nginx/sites-enabled/default
+    find the line:
+    $ root /var/www/html;
+    and change the value /var/www/html to the path to your UI folder. For example:
+    root /media/nvidia/SD/catkin_ws/src/kerrigan_ui;
+    ```
+  - Restart Nginx:
+    ```
+    $ sudo systemctl restart nginx
+    ```
+- Usage: access by IP
+  
+    Try "Open Incognito Window" in your web browser and put 127.0.0.1, you will be able to see the UI if you set everything correctly. It can be accessed by IP adress of your PC from any other devices under the same network as well.
+
+- Parameter:
+
+  - UAV id and ip address
+    Change it from the kerriganlibjs/uav.json file.
+
+  - others: Ping Yu!
+  
+You are good to stop here if you only want to use the UI in our project. 
+
 ## Developer (Optional)
 ### 1. Download tools in Vscode on host PC 
 - Bootstrap 4, Font awesome 4, Font Awesome 5 Free & Pro snippets.
@@ -24,39 +66,8 @@
 
     To make your workspace look good
 
-### 2. Download js scripts (optional) 
-
-    Download necessary js files and then add to your local repo if you don't want to use them online. It could be tricky as the js script has many versions and may not work very well on your projects. Need to try them out and choose the working one. 
-
-### 3. Deploy (optional)
-After the development stage, you will have to deploy the web page, thus it can be accessed by IP adress from any other devices.
-
-- Packages Installation
-  - nginx
-    ```
-    $ sudo apt-get update
-    $ sudo apt-get install nginx
-    ```
-- Setup
-  - Make sure the www-data user can access the FULL path of the website folder!!! 
-    ```
-    $ chmod 755 folder_name
-    ```
-  - Config nginx
-    ```
-    $ sudo gedit /etc/nginx/sites-enabled/default
-    find line:
-    $ root /var/www/html;
-    and change value /var/www/html to the path to your app.
-    root /media/nvidia/SD/catkin_ws/src/ddrone_v2/ddrone_ui;
-    ```
-  - Restart Nginx:
-    ```
-    $ sudo systemctl restart nginx
-    ```
-
-## Onboard TX2 setup
-###  Download ros web server packages
+### 3. Onboard PC setup 
+####  Download ros web server packages
 - web_video_server
     ```
     $ sudo apt-get install ros-kinetic-web-video-server
@@ -71,7 +82,7 @@ After the development stage, you will have to deploy the web page, thus it can b
    ```
    $ sudo apt-get install ros-kinetic-tf2-web-republisher
    ```
-### Put the following contents in ui.launch under your_packages
+#### Put the following contents in ui.launch under your package
 ```
 <!-- -->
 <launch>
@@ -82,35 +93,22 @@ After the development stage, you will have to deploy the web page, thus it can b
 ```
 
 
-# Usage
-## 1. Run UI launch file on the onboard PC
+### 4. Usage
+#### 1. Run UI launch file on the onboard PC
 ```
 $ roslaunch your_packages ui.launch
 (e.g. $ roslaunch ddrone_task_manager ddrone_ui.launch)
 
 ```
 
-## 2. Access UI web page on local ground station
-
-- Access by IP
-  
-    Try "Open Incognito Window" in your web browser and put 127.0.0.1, you will be able to see the UI if you set everything correctly.
+#### 2. Access UI web page on local ground station
 
 - Access From Vscode
 
   - Open your workspace with Vscode
   - Right click index.html in your Vscode
   - Click "Open with Live Server" and then the web will show up in your browser
-
-- Usage and Parameters
   
-  - Choose image that you want to show from the UI
-  - Send mission commmand if you want to test with waypoints
-  - Toggle Swarm to the right side if you want to test swarm algorithm and no need to send the mission command.
-  - Change IP of each UAV in the index.html or on the UI directly. 
-  - Modify ID as the UAV's system ID
-
-   
 
 # Tutorials and useful websites
 1. [Bootstrap 4 + ROS](https://medium.com/husarion-blog/bootstrap-4-ros-creating-a-web-ui-for-your-robot-9a77a8e373f9)
