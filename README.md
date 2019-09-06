@@ -46,7 +46,7 @@
 
   - others: Ping Yu!
   
-You are good to stop here if you only want to use the UI in our project. 
+You are good to stop here if you want to use the UI only. Remember to check out to "kerrigan" branch if you used it for the project.
 
 ## Developer (Optional)
 ### 1. Download tools in Vscode on host PC 
