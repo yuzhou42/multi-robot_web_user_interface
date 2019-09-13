@@ -313,6 +313,33 @@ function CenterControl(controlDiv, map) {
   }
 
 
+function drawPolygon(router_points, google_map){
+    
+
+    var path_router = new google.maps.Polyline({
+        path: router_points,
+        strokeColor: "#D3D3D3",
+        strokeOpacity: pathOpacity,
+        strokeWeight: pathWeight
+      });
+    path_router.setMap(google_map);
+}
+
+function drawCircle(centre, radius, google_map){
+    var Circle = new google.maps.Circle({
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#FF0000',
+        fillOpacity: 0.35,
+        center: centre,
+        radius: radius
+      });
+
+    Circle.setMap(google_map);
+}
+
+
 function initMap() {
 
     google_map = new google.maps.Map(document.getElementById('map'), {
@@ -333,20 +360,27 @@ function initMap() {
     }
 
     var router_points = [
-        {lat: 1.267413, lng: 103.639773},
-        {lat: 1.266713, lng: 103.638996},
-        {lat: 1.266002, lng: 103.640052},
-        {lat: 1.267094, lng: 103.640769},
-        {lat: 1.267413, lng: 103.639773}
+        {lat: 1.267328, lng: 103.638852},
+        {lat: 1.267081, lng: 103.64108},
+        {lat: 1.265714, lng: 103.64092},
+        {lat: 1.265947, lng: 103.63870},
+        {lat: 1.267328, lng: 103.638852}
       ];
+    drawPolygon(router_points, google_map);
 
-    var path_router = new google.maps.Polyline({
-        path: router_points,
-        strokeColor: "#D3D3D3",
-        strokeOpacity: pathOpacity,
-        strokeWeight: pathWeight
-      });
-    path_router.setMap(google_map);
+    var circles = [
+        {centre: {lat: 1.267413, lng: 103.639773}, radius: 120},
+        {centre: {lat: 1.266713, lng: 103.638996}, radius: 120},
+        {centre: {lat: 1.266002, lng: 103.640052}, radius: 120},
+        {centre: {lat: 1.267094, lng: 103.640769}, radius: 120}
+    ];
+
+    circles.forEach( function(circle){
+        console.log(circles);
+        drawCircle(circle.centre, circle.radius, google_map);
+    });
+    
+
 
     // constructor passing in this DIV.
     var centerControlDiv = document.createElement('div');
