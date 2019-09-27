@@ -80,14 +80,7 @@ var gps_path_9;
 var gps_path_10;
 
 
-
-function rosConnection(table_id,table_cell, uav_ip) {
-    //vip: it is important to use reference here instead of value as a parameter
-    window['ros_'+table_id] = new ROSLIB.Ros({
-        url: "ws://" + uav_ip+ ":9090"
-    });
-    // alert("I'm in"+uav_ip);
-    table_cell.innerHTML = "Waiting...";
+function checkRosStatus(table_id, table_cell){
     window['ros_'+table_id].on('connection', function() {
         table_cell.innerHTML = "Connected";
         table_cell.style.color = "limegreen";
@@ -102,6 +95,16 @@ function rosConnection(table_id,table_cell, uav_ip) {
         table_cell.innerHTML = "Closed";
         table_cell.style.color = "crimson";
     });
+}
+
+function rosConnection(table_id,table_cell, uav_ip) {
+    //vip: it is important to use reference here instead of value as a parameter
+    window['ros_'+table_id] = new ROSLIB.Ros({
+        url: "ws://" + uav_ip+ ":9090"
+    });
+    // alert("I'm in"+uav_ip);
+    table_cell.innerHTML = "Waiting...";
+    checkRosStatus(table_id, table_cell);
 }
 
 function changeIp(ip, id) {

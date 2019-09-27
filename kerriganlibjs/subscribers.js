@@ -78,6 +78,7 @@ function subscribeUAVPoseInfo(uav_id, table_id){
         document.getElementById("heading_"+table_id).innerHTML = yaw.toFixed(0);
         
     });
+
 }
 
 function subscribeUAVPoseWSpeed(uav_id, table_id){
@@ -97,6 +98,8 @@ function subscribeUAVPoseWSpeed(uav_id, table_id){
         document.getElementById("z_"+table_id).innerHTML = msg.pose.pose.position.z.toFixed(2);
         document.getElementById("speed_"+table_id).innerHTML = uav_speed.toFixed(2);
     });
+
+    checkRosStatus(table_id, document.getElementById("roslibjs_status_"+table_id));
 }
 
 function subErrorState(uav_id, table_id){
