@@ -97,6 +97,13 @@ function checkRosStatus(table_id, table_cell){
     });
 }
 
+function checkAllRosStatus(){
+    for (var table_id=1; table_id<=uav_num; table_id++){
+        checkRosStatus(table_id, document.getElementById("roslibjs_status_"+table_id));
+    }
+
+}
+
 function rosConnection(table_id,table_cell, uav_ip) {
     //vip: it is important to use reference here instead of value as a parameter
     window['ros_'+table_id] = new ROSLIB.Ros({
@@ -424,6 +431,7 @@ window.onload = function () {
       });
     m_console = document.getElementById("m_console");
     taskManeger();  // send command
+    SetInterval(checkAllRosStatus,500);
 }
 
     // Document.getElementById("wp_send").onclick = function(){
