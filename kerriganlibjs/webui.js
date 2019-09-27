@@ -33,15 +33,15 @@ var errorState = [
     "GPS Time Error",
     "Imu Stuck",        // 14: imuStuck
     "All Good",         // 15
-    "Disarm",     // 16     
-    "Arm",        // 17      
-    "Prearm",     // 18     
-    "Unexpected Error", // 19
-    "Soft Geofence Violence", // 20          
-    "Hard Geofence Violence", // 21 
-    "Return Home Activated",  // 22       
-    "Non Gps Landing Activated", // 23    
-    "Flight Termination Activated"]; //24
+    "Arm Error",     // 16     
+    "ReturnHome",        // 17      
+    "AutoLand",     // 18     
+    "FlightTermination", // 19
+    "Soft-Geo", // 20          
+    "Hard-Geo", // 21 
+    "BatteryLow",  // 22       
+    "GpsFail", // 23    
+    "LargeAttitude"]; //24
 
 // mission from ui
 var mission_pub_1;
