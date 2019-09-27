@@ -268,27 +268,6 @@ function CenterControl(controlDiv, map) {
     controlUI.style.height = '4vh';
     controlUI.title = 'Click to choose test sites';
     controlDiv.appendChild(controlUI);
-    
-    //label_blackmore
-    var label_blackmore = document.createElement('LABEL');
-    label_blackmore.style.color = 'rgb(25,25,25)';
-    label_blackmore.style.fontFamily = 'Roboto,Arial,sans-serif';
-    label_blackmore.style.fontSize = '16px';
-    label_blackmore.style.padding = '0.5vh 1vw 0.5vh 1vw'; //top right bottom left
-    label_blackmore.innerHTML = "Blackmore";
-
-    var toggle_blackmore = document.createElement('INPUT');
-    toggle_blackmore.type = "radio";
-    toggle_blackmore.id = "blackmore_btn";
-    toggle_blackmore.name = "toggle_location";
-    toggle_blackmore.checked = "checked";
-    label_blackmore.appendChild(toggle_blackmore);
-    controlUI.appendChild(label_blackmore); 
-
-    // Setup the click event listeners: simply set the map to Blackmore.
-    toggle_blackmore.addEventListener('click', function() {
-        map.setCenter(Blackmore_Lat_Lon);
-    });
 
     //label_tuas
     var label_tuas = document.createElement('LABEL');
@@ -302,12 +281,33 @@ function CenterControl(controlDiv, map) {
     toggle_tuas.type = "radio";
     toggle_tuas.id = "tuas_btn";
     toggle_tuas.name = "toggle_location";
-    toggle_tuas.checked = "";
+    toggle_tuas.checked = "checked";
     label_tuas.appendChild(toggle_tuas);
     controlUI.appendChild(label_tuas); 
     
     toggle_tuas.addEventListener('click', function() {
         map.setCenter(Tuas_Lat_Lon);
+    });
+
+    //label_blackmore
+    var label_blackmore = document.createElement('LABEL');
+    label_blackmore.style.color = 'rgb(25,25,25)';
+    label_blackmore.style.fontFamily = 'Roboto,Arial,sans-serif';
+    label_blackmore.style.fontSize = '16px';
+    label_blackmore.style.padding = '0.5vh 1vw 0.5vh 1vw'; //top right bottom left
+    label_blackmore.innerHTML = "Blackmore";
+
+    var toggle_blackmore = document.createElement('INPUT');
+    toggle_blackmore.type = "radio";
+    toggle_blackmore.id = "blackmore_btn";
+    toggle_blackmore.name = "toggle_location";
+    toggle_blackmore.checked = "";
+    label_blackmore.appendChild(toggle_blackmore);
+    controlUI.appendChild(label_blackmore); 
+
+    // Setup the click event listeners: simply set the map to Blackmore.
+    toggle_blackmore.addEventListener('click', function() {
+        map.setCenter(Blackmore_Lat_Lon);
     });
 
   }
@@ -328,10 +328,10 @@ function drawPolygon(router_points, google_map){
 function drawCircle(centre, radius, google_map){
     var Circle = new google.maps.Circle({
         strokeColor: '#FF0000',
-        strokeOpacity: 0.8,
+        strokeOpacity: 0,
         strokeWeight: 2,
         fillColor: '#FF0000',
-        fillOpacity: 0.35,
+        fillOpacity: 0.12,
         center: centre,
         radius: radius
       });
@@ -344,7 +344,7 @@ function initMap() {
 
     google_map = new google.maps.Map(document.getElementById('map'), {
         zoom: 17,
-        center: {lat: 1.32854998112, lng: 103.786003113}, //holland road
+        center: Tuas_Lat_Lon, //holland road
         // center: {lat: 1.299993, lng: 103.772041}, // test data tlab
         // center: {lat: 47.11967, lng: 8.6695}, // test data
         mapTypeId: 'satellite'
