@@ -39,12 +39,15 @@
   
     Try "Open Incognito Window" in your web browser and put 127.0.0.1, you will be able to see the UI if you set everything correctly. It can be accessed by IP adress of your PC from any other devices under the same network as well.
 
-### 4. Parameter:
+### 4. Parameter
+
+  - Google Map
+    Change the "key=AIzaSyBZosUgHCrvo9AvwD0VMluJlghEn113jm0" in index.html file to your own API key if you want to use Google Map.
 
   - UAV id and ip address
     Change it from the kerriganlibjs/uav.json file.
 
-  - others: Ping Yu!
+  - others: Ping Yu(yu.nico.zhou@gmail.com)!
   
 You are good to stop here if you want to use the UI only. Remember to check out to "kerrigan" branch if you used it for the project.
 
